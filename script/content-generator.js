@@ -6,75 +6,95 @@ import {
   handleMakeDir,
   handleWriteFile,
 } from "./svg-to-mdx.js";
+import { icons } from "./icons.js";
 
-let fileData;
-const handleReadFile = (
+let fileData = "";
+const handleReadFile = async (
   filePath,
   relativePath,
   outputFolderName,
-  extension = ".js",
+  extension,
   template
 ) => {
-  handleMakeDir(relativePath, outputFolderName).then(async () => {
-    if (filePath.endsWith(".mdx")) {
-      const outputDir = generateOutputDirectory(
-        outputFolderName,
-        relativePath,
-        extension
-      );
-
-      fileData = await fsPromise.readFile("../_contents/index2.js", {
+  if (filePath.endsWith(".mdx")) {
+    const OUTPUT = path.join(outputFolderName, "index.js");
+    try {
+      fileData = await fsPromise.readFile(OUTPUT, {
         encoding: "utf-8",
       });
+    } catch (error) {
+      await fsPromise.writeFile(OUTPUT, `[];`);
+    }
 
-      // OPT for cases where meta data is not available
-      const data = await fsPromise.readFile(filePath, { encoding: "utf-8" });
-      let [metaData, rawData] = data.split("`");
-
-      metaData = metaData
-        .replace("<<path>>", path)
-        .replace("<<date>>", String(Date()));
-
-      metaData = metaData.split("---")[1].split("\n");
-      const arrayMetaData = [];
-      for (let i = 0; i < metaData.length; i++) {
-        if (metaData[i]) {
-          const [key, value] = metaData[i].split(":");
-          arrayMetaData.push({ [key]: value.trim() });
-        }
+    const data = await fsPromise.readFile(filePath, { encoding: "utf-8" });
+    let [metaData, rawData] = data.split("`");
+    metaData = metaData
+      .replace("<<path>>", path)
+      .replace("<<date>>", String(Date()));
+    metaData = metaData.split("---")[1].split("\n");
+    let newMetaData = "";
+    for (let i = 0; i < metaData.length; i++) {
+      if (metaData[i]) {
+        const [key, value] = metaData[i].split(":");
+        newMetaData += `${key}: '${value?.trim()}',`;
       }
-      metaData = arrayMetaData;
-
-      fileData = fileData.replace(
-        "];",
-        `{_raw: \`${rawData}\`, _metaData: ${JSON.stringify(metaData)}},];`
-      );
-      handleWriteFile("../_contents/index2.js", fileData);
     }
-  });
+    metaData = newMetaData;
+    let fileDatas = fileData?.replace(
+      "];",
+      `{_raw: \`${rawData}\`, ${metaData}},];`
+    );
+    // handleWriteFile(OUTPUT, fileData);
+    // fileData = "[];"
+    return { OUTPUT, fileDatas };
+  }
 };
 
-const handleReadDir = (
-  folderPath = "../mdx/icons/LUC",
-  outputFolderPath = "OUTPUT"
-) => {
-  fs.readdir(path.resolve(folderPath), { recursive: true }, (err, files) => {
-    if (err) {
-      return console.error(err);
-    }
-
-    files.map((file) => {
-      const currentPath = path.join(folderPath, file);
-      const relativePath = path.join(file);
-      handleReadFile(
-        currentPath,
-        relativePath.replace(".mdx", ".js"),
-        (outputFolderPath = "../_contents"),
-        "extension",
-        "template"
-      );
+const handleReadDir = async (folderPath, outputFolderPath, extension) => {
+  try {
+    const files = await fsPromise.readdir(path.resolve(folderPath), {
+      recursive: true,
     });
-  });
+    return { files, dir: path.resolve(folderPath) };
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-handleReadDir();
+for (let i = 0; i < icons.length; i++) {
+  const folderName = icons[i].source.localName;
+  const outPut = path.join("./_contents", folderName);
+
+  try {
+    await fsPromise.mkdir(outPut, (err, path) => {
+      if (err) throw err;
+    });
+  } catch (err) { }
+
+  const result = await handleReadDir(
+    `./mdx/icons/${folderName}`,
+    outPut,
+    ".js"
+  );
+  const { files, dir } = result;
+
+  // console.log({ files })
+  fileData = "[];"
+  for (let i = 0; i < files.length; i++) {
+    const currentPath = path.join(dir, files[i]);
+    const relativePath = path.join(files[i]);
+    const fileToWrite = await handleReadFile(
+      currentPath,
+      relativePath.replace(".mdx", ".js"),
+      outPut,
+      ".js",
+      "template"
+    );
+
+    const { OUTPUT, fileDatas } = fileToWrite;
+    // console.log(fileToWrite)
+    await fsPromise.writeFile(OUTPUT, fileDatas, (err) => {
+      if (err) throw err;
+    });
+  }
+}

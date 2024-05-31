@@ -43,7 +43,7 @@ const optimizeSvg = (svgString) => {
  * @param {string} data
  * @param {string | undefined} template
  */
-export const handleWriteFile = (path, data, template) => {
+export const handleWriteFile = (path, data, template, folderName) => {
   const folderPath = path.split("/").slice(0, -1).join("/");
   const fileName = path.split("/").pop().split(".")[0];
   const extensionName = path.split("/").pop().split(".")[1];
@@ -51,12 +51,13 @@ export const handleWriteFile = (path, data, template) => {
   const modifiedData = template
     ? template
 
-        .replace("<<children>>", data.replace(/\s+/g, " ").trim())
-        .replace("<<path>>", path)
-        .replace("<<fileName>>", fileName)
-        .replace("<<date>>", String(Date()))
-        .replace("<<extensionName>>", extensionName)
-    : data.replace(/\s+/g, " ").trim();
+      .replace("<<children>>", data?.replace(/\s+/g, " ").trim())
+      .replace("<<path>>", path)
+      .replace("<<folderName>>", folderName)
+      .replace("<<fileName>>", fileName)
+      .replace("<<date>>", String(Date()))
+      .replace("<<extensionName>>", extensionName)
+    : data?.replace(/\s+/g, " ").trim();
 
   fs.writeFile(path, modifiedData, (err) => {
     if (err) throw err;
@@ -129,7 +130,8 @@ export const handleReadFile = (
   relativePath,
   outputFolderName,
   extension,
-  template
+  template,
+  folderName
 ) => {
   handleMakeDir(relativePath, outputFolderName).then(() => {
     if (filePath.endsWith(".svg")) {
@@ -141,7 +143,7 @@ export const handleReadFile = (
 
       fs.readFile(filePath, { encoding: "utf-8" }, (err, data) => {
         if (err) throw err;
-        handleWriteFile(outputDir, optimizeSvg(data), template);
+        handleWriteFile(outputDir, optimizeSvg(data), template, folderName);
       });
     }
   });
@@ -160,6 +162,7 @@ export const convertFolder = (
   extension,
   template = false
 ) => {
+  const folderName = folderPath.split("/icons/")[1].split("/")[0];
   fs.readdir(folderPath, { recursive: true }, (err, files) => {
     if (err) {
       return console.error(err);
@@ -173,7 +176,8 @@ export const convertFolder = (
         relativePath,
         outputFolderPath,
         extension,
-        template
+        template,
+        folderName
       );
     });
   });
@@ -181,6 +185,7 @@ export const convertFolder = (
 
 const template = `---
 name: <<fileName>>
+folderName: <<folderName>>
 type: LucideIcons
 setSize: true
 ---
@@ -194,7 +199,7 @@ setSize: true
 //     console.log(filePath);
 //     convertFolder(
 //       filePath,
-//       `../mdx/icons/${icons[i].name.split(" ").join("")}`,
+//       `../mdx/icons/${icons[i].source.localName}`,
 //       "mdx",
 //       template
 //     );
