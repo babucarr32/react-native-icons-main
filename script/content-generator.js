@@ -8,13 +8,48 @@ import {
 } from "./svg-to-mdx.js";
 import { icons } from "./icons.js";
 
+/**
+ *
+ * @param {string} text
+ */
+const generateTitleCase = (text) => {
+  if (text)
+    text = `all${text
+      .split(" ")
+      .map((t) => t.charAt(0).toUpperCase() + t.slice(1))
+      .join("")}`;
+  return text;
+};
+
 let fileData = "";
+/**
+ *
+ * @param {string} iconName
+ * @returns {string}
+ */
+const getInitialData = (iconName) =>
+  `export const ${generateTitleCase(iconName)} = [];`;
+
+/**
+ *
+ * @param {string} typeName
+ * @param {string} declaredTypes
+ * @returns {string}
+ */
+const generateTypes = (typeName, declaredTypes) => {
+  const generatedTypes = `type Icon = {
+  ${declaredTypes}
+};
+export const ${generateTitleCase(typeName)}: Icon[];
+`;
+  return generatedTypes;
+};
+
 const handleReadFile = async (
   filePath,
   relativePath,
   outputFolderName,
-  extension,
-  template
+  iconName
 ) => {
   if (filePath.endsWith(".mdx")) {
     const OUTPUT = path.join(outputFolderName, "index.js");
@@ -23,7 +58,8 @@ const handleReadFile = async (
         encoding: "utf-8",
       });
     } catch (error) {
-      await fsPromise.writeFile(OUTPUT, `[];`);
+      const initialData = getInitialData(iconName);
+      await fsPromise.writeFile(OUTPUT, initialData);
     }
 
     const data = await fsPromise.readFile(filePath, { encoding: "utf-8" });
@@ -32,25 +68,27 @@ const handleReadFile = async (
       .replace("<<path>>", path)
       .replace("<<date>>", String(Date()));
     metaData = metaData.split("---")[1].split("\n");
+
     let newMetaData = "";
+    let declaredTypes = "";
+
     for (let i = 0; i < metaData.length; i++) {
       if (metaData[i]) {
         const [key, value] = metaData[i].split(":");
         newMetaData += `${key}: '${value?.trim()}',`;
+        declaredTypes += `${key}: string,\n\t`;
       }
     }
     metaData = newMetaData;
-    let fileDatas = fileData?.replace(
+    let replacedFileData = fileData?.replace(
       "];",
-      `{_raw: \`${rawData}\`, ${metaData}},];`
+      `{_raw: \`${rawData}\`, ${newMetaData}},];`
     );
-    // handleWriteFile(OUTPUT, fileData);
-    // fileData = "[];"
-    return { OUTPUT, fileDatas };
+    return { OUTPUT, replacedFileData, declaredTypes };
   }
 };
 
-const handleReadDir = async (folderPath, outputFolderPath, extension) => {
+const handleReadDir = async (folderPath) => {
   try {
     const files = await fsPromise.readdir(path.resolve(folderPath), {
       recursive: true,
@@ -63,38 +101,42 @@ const handleReadDir = async (folderPath, outputFolderPath, extension) => {
 
 for (let i = 0; i < icons.length; i++) {
   const folderName = icons[i].source.localName;
-  const outPut = path.join("./_contents", folderName);
+  const outputDir = path.join("./_contents", folderName);
 
   try {
-    await fsPromise.mkdir(outPut, (err, path) => {
+    await fsPromise.mkdir(outputDir, (err, path) => {
       if (err) throw err;
     });
   } catch (err) { }
 
-  const result = await handleReadDir(
-    `./mdx/icons/${folderName}`,
-    outPut,
-    ".js"
-  );
-  const { files, dir } = result;
+  const result = await handleReadDir(`./mdx/icons/${folderName}`);
+  const { files, dir: folderDir } = result;
 
-  // console.log({ files })
-  fileData = "[];"
+  let tsDir;
+  let generatedTypes;
+  const iconName = icons[i]?.name;
+  fileData = getInitialData(iconName);
+
   for (let i = 0; i < files.length; i++) {
-    const currentPath = path.join(dir, files[i]);
+    const currentPath = path.join(folderDir, files[i]);
     const relativePath = path.join(files[i]);
     const fileToWrite = await handleReadFile(
       currentPath,
       relativePath.replace(".mdx", ".js"),
-      outPut,
-      ".js",
-      "template"
+      outputDir,
+      iconName
     );
 
-    const { OUTPUT, fileDatas } = fileToWrite;
-    // console.log(fileToWrite)
-    await fsPromise.writeFile(OUTPUT, fileDatas, (err) => {
+    const { OUTPUT: dir, replacedFileData: data, declaredTypes } = fileToWrite;
+    tsDir = dir.replace(".js", ".d.ts");
+
+    generatedTypes = generateTypes(iconName, declaredTypes);
+
+    await fsPromise.writeFile(dir, data, (err) => {
       if (err) throw err;
     });
   }
+  await fsPromise.writeFile(tsDir, generatedTypes, (err) => {
+    if (err) throw err;
+  });
 }
