@@ -1,183 +1,106 @@
 import path from "path";
 import camelcase from "camelcase";
-// import { glob } from "../../scripts/glob";
+// import { glob } from "./scripts/glob";
 
 export const icons = [
-  {
-    id: "ci",
-    name: "Circum Icons",
-    contents: [
-      {
-        files: path.resolve("../icons/Circum-Icons/svg/*.svg"),
-        formatter: (name) => `Ci${name}`.replace(/_/g, "").replace(/&/g, "And"),
-      },
-    ],
-    projectUrl: "https://circumicons.com/",
-    license: "MPL-2.0 license",
-    licenseUrl:
-      "https://github.com/Klarr-Agency/Circum-Icons/blob/main/LICENSE",
-    source: {
-      type: "git",
-      localName: "Circum-Icons",
-      remoteDir: "svg/",
-      url: "https://github.com/Klarr-Agency/Circum-Icons.git",
-      branch: "main",
-      hash: "cec1364b5199f55e946a9a8360385a958b98cc60",
-    },
-  },
-  {
-    id: "fa",
-    name: "Font Awesome 5",
-    contents: [
-      {
-        files: path.resolve("../icons/fontawesome/svgs/+(brands|solid)/*.svg"),
-        formatter: (name) => `Fa${name}`,
-      },
-      {
-        files: path.resolve("../icons/fontawesome/svgs/regular/*.svg"),
-        formatter: (name) => `FaReg${name}`,
-      },
-    ],
-    projectUrl: "https://fontawesome.com/",
-    license: "CC BY 4.0 License",
-    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
-    source: {
-      type: "git",
-      localName: "fontawesome",
-      remoteDir: "svgs/",
-      url: "https://github.com/FortAwesome/Font-Awesome.git",
-      branch: "5.x",
-      hash: "afecf2af5d897b763e5e8e28d46aad2f710ccad6",
-    },
-  },
   // {
-  //   id: "fa6",
-  //   name: "Font Awesome 6",
+  //   id: "ci",
+  //   name: "Circum Icons",
   //   contents: [
   //     {
-  //       files: path.resolve(
-  //         "../icons/fontawesome-6/svgs/+(brands|solid)/*.svg"
-  //       ),
-  //       formatter: (name) => `Fa${name}`,
-  //     },
-  //     {
-  //       files: path.resolve("../../icons/fontawesome-6/svgs/regular/*.svg"),
-  //       formatter: (name) => `FaReg${name}`,
+  //       files: path.resolve("./icons/Circum-Icons/svg/*.svg"),
+  //       formatter: (name) => `Ci${name}`.replace(/_/g, "").replace(/&/g, "And"),
   //     },
   //   ],
-  //   projectUrl: "https://fontawesome.com/",
-  //   license: "CC BY 4.0 License",
-  //   licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
-  //   source: {
-  //     type: "git",
-  //     localName: "fontawesome-6",
-  //     remoteDir: "svgs/",
-  //     url: "https://github.com/FortAwesome/Font-Awesome.git",
-  //     branch: "6.x",
-  //     hash: "c0f460dca7f7688761120415ff3c9cf7f73119be",
-  //   },
-  // },
-  // {
-  //   id: "io",
-  //   name: "Ionicons 4",
-  //   contents: [
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../icons/ionicons/collection/icon/svg/*.svg"
-  //       ),
-  //       formatter: (name) => `Io${name}`,
-  //     },
-  //   ],
-  //   projectUrl: "https://ionicons.com/",
-  //   license: "MIT",
-  //   licenseUrl: "https://github.com/ionic-team/ionicons/blob/master/LICENSE",
-  // },
-  // {
-  //   id: "io5",
-  //   name: "Ionicons 5",
-  //   contents: [
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../../../node_modules/ionicons-5/dist/svg/*.svg"
-  //       ),
-  //       formatter: (name) => `Io${name}`,
-  //       processWithSVGO: true,
-  //     },
-  //   ],
-  //   projectUrl: "https://ionicons.com/",
-  //   license: "MIT",
-  //   licenseUrl: "https://github.com/ionic-team/ionicons/blob/master/LICENSE",
-  // },
-
-  // ///////////////////////////////////////////
-  // {
-  //   id: "md",
-  //   name: "Material Design icons",
-  //   contents: [
-  //     {
-  //       files: async () => {
-  //         const normal = await glob(
-  //           path.resolve(
-  //
-  //             "../../icons/material-design-icons/src/*/*/materialicons/24px.svg"
-  //           )
-  //         );
-
-  //         const twotone = await glob(
-  //           path.resolve(
-  //
-  //             "../../icons/material-design-icons/src/*/*/materialiconstwotone/24px.svg"
-  //           )
-  //         );
-  //         return [
-  //           ...normal,
-  //           ...twotone.filter(
-  //             (file) => !normal.includes(file.replace("twotone/", "/"))
-  //           ),
-  //         ];
-  //       },
-  //       formatter: (name, file) =>
-  //         `Md${camelcase(
-  //           file.replace(/^.*\/([^/]+)\/materialicons[^/]*\/24px.svg$/i, "$1"),
-  //           { pascalCase: true }
-  //         )}`,
-  //       processWithSVGO: true,
-  //     },
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/material-design-icons/src/*/*/materialiconsoutlined/24px.svg"
-  //       ),
-  //       formatter: (name, file) =>
-  //         `MdOutline${camelcase(
-  //           file.replace(/^.*\/([^/]+)\/materialicons[^/]*\/24px.svg$/i, "$1"),
-  //           { pascalCase: true }
-  //         )}`,
-  //       processWithSVGO: true,
-  //     },
-  //   ],
-  //   projectUrl: "http://google.github.io/material-design-icons/",
-  //   license: "Apache License Version 2.0",
+  //   projectUrl: "https://circumicons.com/",
+  //   license: "MPL-2.0 license",
   //   licenseUrl:
-  //     "https://github.com/google/material-design-icons/blob/master/LICENSE",
+  //     "https://github.com/Klarr-Agency/Circum-Icons/blob/main/LICENSE",
   //   source: {
   //     type: "git",
-  //     localName: "material-design-icons",
-  //     remoteDir: "src/",
-  //     url: "https://github.com/google/material-design-icons.git",
-  //     branch: "master",
-  //     hash: "9beae745bb758f3ad56654fb377ea5cf62be4915",
+  //     localName: "Circum-Icons",
+  //     remoteDir: "svg/",
+  //     url: "https://github.com/Klarr-Agency/Circum-Icons.git",
+  //     branch: "main",
+  //     hash: "cec1364b5199f55e946a9a8360385a958b98cc60",
   //   },
   // },
-  // ////////////////////////////////////////////////
+  // //////// THIS SEEM TO ALREADY EXIXST NAME DOES NOT EXIST I.E FONT_AWESOME
+  // // {
+  // //   id: "fa",
+  // //   name: "Font Awesome 5",
+  // //   contents: [
+  // //     {
+  // //       files: path.resolve("./icons/fontawesome/svgs/*.svg"),
+  // //       formatter: (name) => `Fa${name}`,
+  // //     },
+  // //   ],
+  // //   projectUrl: "https://fontawesome.com/",
+  // //   license: "CC BY 4.0 License",
+  // //   licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+  // //   source: {
+  // //     type: "git",
+  // //     localName: "Font-Awesome",
+  // //     remoteDir: "svgs/",
+  // //     url: "https://github.com/FortAwesome/Font-Awesome.git",
+  // //     branch: "5.x",
+  // //     hash: "afecf2af5d897b763e5e8e28d46aad2f710ccad6",
+  // //   },
+  // // },
+  // // // {
+  // // //   id: "io5",
+  // // //   name: "Ionicons 5",
+  // // //   contents: [
+  // // //     {
+  // // //       files: path.resolve(
+
+  // // //         "./../../node_modules/ionicons-5/dist/svg/*.svg"
+  // // //       ),
+  // // //       formatter: (name) => `Io${name}`,
+  // // //       processWithSVGO: true,
+  // // //     },
+  // // //   ],
+  // // //   projectUrl: "https://ionicons.com/",
+  // // //   license: "MIT",
+  // // //   licenseUrl: "https://github.com/ionic-team/ionicons/blob/master/LICENSE",
+  // // // },
+
+  // // // ///////////////////////////////////////////
+  // // {
+  // //   id: "md",
+  // //   name: "Material Design icons",
+  // //   contents: [
+  // //     {
+  // //       files: path.resolve("./icons/material-design-icons/src/24px.svg"),
+
+  // //       formatter: (name, file) =>
+  // //         `Md${camelcase(
+  // //           file.replace(/^.*\/([^/]+)\/materialicons[^/]*\/24px.svg$/i, "$1"),
+  // //           { pascalCase: true }
+  // //         )}`,
+  // //       processWithSVGO: true,
+  // //     },
+  // //   ],
+  // //   projectUrl: "http://google.github.io/material-design-icons/",
+  // //   license: "Apache License Version 2.0",
+  // //   licenseUrl:
+  // //     "https://github.com/google/material-design-icons/blob/master/LICENSE",
+  // //   source: {
+  // //     type: "git",
+  // //     localName: "material-design-icons",
+  // //     remoteDir: "src/",
+  // //     url: "https://github.com/google/material-design-icons.git",
+  // //     branch: "master",
+  // //     hash: "9beae745bb758f3ad56654fb377ea5cf62be4915",
+  // //   },
+  // // },
+  // // // ////////////////////////////////////////////////
   // {
   //   id: "ti",
   //   name: "Typicons",
   //   contents: [
   //     {
-  //       files: path.resolve("../icons/typicons/src/svg/*.svg"),
+  //       files: path.resolve("./icons/typicons/src/svg/*.svg"),
   //       formatter: (name) => `Ti${name}`,
   //     },
   //   ],
@@ -198,12 +121,15 @@ export const icons = [
   //   name: "Github Octicons icons",
   //   contents: [
   //     {
-  //       files: path.resolve(
-  //         "../icons/@primer/octicons/build/svg/*-24.svg"
-  //       ),
+  //       files: path.resolve("./icons/octicons/icons/*.svg"),
   //       formatter: (name) => `Go${name}`.replace("24", ""),
   //     },
   //   ],
+  //   source: {
+  //     localName: "octicons",
+  //     url: "https://github.com/primer/octicons.git",
+  //     // UPDATE-----------------------------------
+  //   },
   //   projectUrl: "https://octicons.github.com/",
   //   license: "MIT",
   //   licenseUrl: "https://github.com/primer/octicons/blob/master/LICENSE",
@@ -213,38 +139,44 @@ export const icons = [
   //   name: "Feather",
   //   contents: [
   //     {
-  //       files: path.resolve(
-  //         "../icons/feather-icons/icons/*.svg"
-  //       ),
+  //       localName: "feather",
+  //       files: path.resolve("./icons/feather/icons/*.svg"),
   //       formatter: (name) => `Fi${name}`,
   //     },
   //   ],
   //   projectUrl: "https://feathericons.com/",
   //   license: "MIT",
   //   licenseUrl: "https://github.com/feathericons/feather/blob/master/LICENSE",
+  //   source: {
+  //     localName: "feather",
+  //     url: "https://github.com/feathericons/feather.git",
+  //     // UPDATE-----------------------------------
+  //   },
   // },
   // {
   //   id: "lu",
   //   name: "Lucide",
   //   contents: [
   //     {
-  //       files: path.resolve("../icons/lucide-static/icons/*.svg"),
+  //       files: path.resolve("./icons/lucide-static/icons/*.svg"),
   //       formatter: (name) => `Lu${name}`,
   //     },
   //   ],
   //   projectUrl: "https://lucide.dev/",
   //   license: "ISC",
   //   licenseUrl: "https://github.com/lucide-icons/lucide/blob/main/LICENSE",
+  //   source: {
+  //     localName: "lucide-static",
+  //     url: "https://github.com/lucide-icons/lucide.git",
+  //     // UPDATE-----------------------------------
+  //   },
   // },
   // {
   //   id: "gi",
   //   name: "Game Icons",
   //   contents: [
   //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/game-icons-inverted/all-icons/*.svg"
-  //       ),
+  //       files: path.resolve("./icons/game-icons-inverted/all-icons/*.svg"),
   //       formatter: (name) => `Gi${name}`,
   //     },
   //   ],
@@ -265,7 +197,7 @@ export const icons = [
   //   name: "Weather Icons",
   //   contents: [
   //     {
-  //       files: path.resolve("../icons/weather-icons/svg/*.svg"),
+  //       files: path.resolve("./icons/weather-icons/svg/*.svg"),
   //       formatter: (name) => name,
   //     },
   //   ],
@@ -286,7 +218,7 @@ export const icons = [
   //   name: "Devicons",
   //   contents: [
   //     {
-  //       files: path.resolve("../icons/devicons/!SVG/*.svg"),
+  //       files: path.resolve("./icons/devicons/!SVG/*.svg"),
   //       formatter: (name) => `Di${name}`,
   //     },
   //   ],
@@ -305,28 +237,13 @@ export const icons = [
   // {
   //   id: "ai",
   //   name: "Ant Design Icons",
+  //   // This path has multiple icons in folder TODO
   //   contents: [
   //     {
   //       files: path.resolve(
-  //
-  //         "../../icons/ant-design-icons/packages/icons-svg/svg/filled/*.svg"
+  //         "./icons/ant-design-icons/packages/icons-svg/svg/filled/*.svg"
   //       ),
   //       formatter: (name) => `AiFill${name}`,
-  //     },
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/ant-design-icons/packages/icons-svg/svg/outlined/*.svg"
-  //       ),
-  //       formatter: (name) => `AiOutline${name}`,
-  //     },
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/ant-design-icons/packages/icons-svg/svg/twotone/*.svg"
-  //       ),
-  //       formatter: (name) => `AiTwotone${name}`,
-  //       multiColor: true,
   //     },
   //   ],
   //   projectUrl: "https://github.com/ant-design/ant-design-icons",
@@ -341,50 +258,47 @@ export const icons = [
   //     hash: "655d46ec72d78357d7c6c0ac1c623b8975bc4f76",
   //   },
   // },
-  // {
-  //   id: "bs",
-  //   name: "Bootstrap Icons",
-  //   contents: [
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/bootstrap/icons/*!(-reverse)-fill.svg"
-  //       ),
-  //       formatter: (name) => `BsFill${name}`,
-  //     },
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/bootstrap/icons/*-reverse!(-fill).svg"
-  //       ),
-  //       formatter: (name) => `BsReverse${name}`,
-  //     },
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/bootstrap/icons/*!(-fill|-reverse|reverse-).svg"
-  //       ),
-  //       formatter: (name) => `Bs${name}`,
-  //     },
-  //   ],
-  //   projectUrl: "https://github.com/twbs/icons",
-  //   license: "MIT",
-  //   licenseUrl: "https://opensource.org/licenses/MIT",
-  //   source: {
-  //     type: "git",
-  //     localName: "bootstrap",
-  //     remoteDir: "icons/",
-  //     url: "https://github.com/twbs/icons.git",
-  //     branch: "main",
-  //     hash: "92b6aee4c53aec1b5227360e0c9c63490b4b90c5",
-  //   },
-  // },
+  // // {
+  // //   id: "bs",
+  // //   name: "Bootstrap Icons",
+  // //   contents: [
+  // //     {
+  // //       files: path.resolve(
+  // //         "./icons/bootstrap/icons/*!(-reverse)-fill.svg"
+  // //       ),
+  // //       formatter: (name) => `BsFill${name}`,
+  // //     },
+  // //     {
+  // //       files: path.resolve(
+  // //         "./icons/bootstrap/icons/*-reverse!(-fill).svg"
+  // //       ),
+  // //       formatter: (name) => `BsReverse${name}`,
+  // //     },
+  // //     {
+  // //       files: path.resolve(
+  // //         "./icons/bootstrap/icons/*!(-fill|-reverse|reverse-).svg"
+  // //       ),
+  // //       formatter: (name) => `Bs${name}`,
+  // //     },
+  // //   ],
+  // //   projectUrl: "https://github.com/twbs/icons",
+  // //   license: "MIT",
+  // //   licenseUrl: "https://opensource.org/licenses/MIT",
+  // //   source: {
+  // //     type: "git",
+  // //     localName: "bootstrap",
+  // //     remoteDir: "icons/",
+  // //     url: "https://github.com/twbs/icons.git",
+  // //     branch: "main",
+  // //     hash: "92b6aee4c53aec1b5227360e0c9c63490b4b90c5",
+  // //   },
+  // // },
   // {
   //   id: "ri",
   //   name: "Remix Icon",
   //   contents: [
   //     {
-  //       files: path.resolve("../icons/RemixIcon/icons/*/*.svg"),
+  //       files: path.resolve("./icons/RemixIcon/icons/*.svg"),
   //       formatter: (name) => `Ri${name}`,
   //     },
   //   ],
@@ -405,10 +319,7 @@ export const icons = [
   //   name: "Flat Color Icons",
   //   contents: [
   //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/flat-color-icons/svg/*.svg"
-  //       ),
+  //       files: path.resolve("./icons/flat-color-icons/svg/*.svg"),
   //       formatter: (name) => `Fc${name}`,
   //       multiColor: true,
   //     },
@@ -430,10 +341,7 @@ export const icons = [
   //   name: "Grommet-Icons",
   //   contents: [
   //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/grommet-icons/public/img/*.svg"
-  //       ),
+  //       files: path.resolve("./icons/grommet-icons/public/img/*.svg"),
   //       formatter: (name) => `Gr${name}`,
   //     },
   //   ],
@@ -449,81 +357,64 @@ export const icons = [
   //     hash: "bfb635567739ba4303d72eefcc908f310eaec351",
   //   },
   // },
-  // {
-  //   id: "hi",
-  //   name: "Heroicons",
-  //   contents: [
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/heroicons/optimized/solid/*.svg"
-  //       ),
-  //       formatter: (name) => `Hi${name}`,
-  //     },
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/heroicons/optimized/outline/*.svg"
-  //       ),
-  //       formatter: (name) => `HiOutline${name}`,
-  //     },
-  //   ],
-  //   projectUrl: "https://github.com/tailwindlabs/heroicons",
-  //   license: "MIT",
-  //   licenseUrl: "https://opensource.org/licenses/MIT",
-  //   source: {
-  //     type: "git",
-  //     localName: "heroicons",
-  //     remoteDir: "optimized/",
-  //     url: "https://github.com/tailwindlabs/heroicons.git",
-  //     branch: "v1",
-  //     hash: "b6de5792d3d53ff81c71b1b8283463aad622e0e3",
-  //   },
-  // },
-  // {
-  //   id: "hi2",
-  //   name: "Heroicons 2",
-  //   contents: [
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/heroicons-2/optimized/24/solid/*.svg"
-  //       ),
-  //       formatter: (name) => `Hi${name}`,
-  //     },
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/heroicons-2/optimized/24/outline/*.svg"
-  //       ),
-  //       formatter: (name) => `HiOutline${name}`,
-  //     },
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/heroicons-2/optimized/20/solid/*.svg"
-  //       ),
-  //       formatter: (name) => `HiMini${name}`,
-  //     },
-  //   ],
-  //   projectUrl: "https://github.com/tailwindlabs/heroicons",
-  //   license: "MIT",
-  //   licenseUrl: "https://opensource.org/licenses/MIT",
-  //   source: {
-  //     type: "git",
-  //     localName: "heroicons-2",
-  //     remoteDir: "optimized/",
-  //     url: "https://github.com/tailwindlabs/heroicons.git",
-  //     branch: "master",
-  //     hash: "9a17872e685bf48b83c047572c45617b6fd345e7",
-  //   },
-  // },
+  {
+    id: "hi",
+    name: "Heroicons",
+    contents: [
+      {
+        files: path.resolve("./icons/heroicons/optimized/*.svg"),
+        formatter: (name) => `Hi${name}`,
+      },
+    ],
+    projectUrl: "https://github.com/tailwindlabs/heroicons",
+    license: "MIT",
+    licenseUrl: "https://opensource.org/licenses/MIT",
+    source: {
+      type: "git",
+      localName: "heroicons",
+      remoteDir: "optimized/",
+      url: "https://github.com/tailwindlabs/heroicons.git",
+      branch: "v1",
+      hash: "b6de5792d3d53ff81c71b1b8283463aad622e0e3",
+    },
+  },
+  // // {
+  // //   id: "hi2",
+  // //   name: "Heroicons 2",
+  // //   contents: [
+  // //     {
+  // //       files: path.resolve("./icons/heroicons-2/optimized/24/solid/*.svg"),
+  // //       formatter: (name) => `Hi${name}`,
+  // //     },
+  // //     {
+  // //       files: path.resolve(
+  // //         "./icons/heroicons-2/optimized/24/outline/*.svg"
+  // //       ),
+  // //       formatter: (name) => `HiOutline${name}`,
+  // //     },
+  // //     {
+  // //       files: path.resolve("./icons/heroicons-2/optimized/20/solid/*.svg"),
+  // //       formatter: (name) => `HiMini${name}`,
+  // //     },
+  // //   ],
+  // //   projectUrl: "https://github.com/tailwindlabs/heroicons",
+  // //   license: "MIT",
+  // //   licenseUrl: "https://opensource.org/licenses/MIT",
+  // //   source: {
+  // //     type: "git",
+  // //     localName: "heroicons-2",
+  // //     remoteDir: "optimized/",
+  // //     url: "https://github.com/tailwindlabs/heroicons.git",
+  // //     branch: "master",
+  // //     hash: "9a17872e685bf48b83c047572c45617b6fd345e7",
+  // //   },
+  // // },
   // {
   //   id: "si",
   //   name: "Simple Icons",
   //   contents: [
   //     {
-  //       files: path.resolve("../icons/simple-icons/icons/*.svg"),
+  //       files: path.resolve("./icons/simple-icons/icons/*.svg"),
   //       formatter: (name) => `Si${name}`,
   //     },
   //   ],
@@ -544,10 +435,7 @@ export const icons = [
   //   name: "Simple Line Icons",
   //   contents: [
   //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/simple-line-icons/src/svgs/*.svg"
-  //       ),
+  //       files: path.resolve("./icons/simple-line-icons/src/svgs/*.svg"),
   //       formatter: (name) => `Sl${name}`,
   //     },
   //   ],
@@ -568,7 +456,7 @@ export const icons = [
   //   name: "IcoMoon Free",
   //   contents: [
   //     {
-  //       files: path.resolve("../icons/icomoon-free/SVG/*.svg"),
+  //       files: path.resolve("./icons/icomoon-free/SVG/*.svg"),
   //       formatter: (name) => `Im${name.slice(3)}`,
   //     },
   //   ],
@@ -578,7 +466,7 @@ export const icons = [
   //     "https://github.com/Keyamoon/IcoMoon-Free/blob/master/License.txt",
   //   source: {
   //     type: "git",
-  //     localName: "icomoon-free",
+  //     localName: "IcoMoon-Free",
   //     remoteDir: "SVG/",
   //     url: "https://github.com/Keyamoon/IcoMoon-Free.git",
   //     branch: "master",
@@ -590,19 +478,8 @@ export const icons = [
   //   name: "BoxIcons",
   //   contents: [
   //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/boxicons/svg/regular/*.svg"
-  //       ),
+  //       files: path.resolve("./icons/boxicons/svg/*.svg"),
   //       formatter: (name) => `Bi${name.replace("Bx", "")}`,
-  //     },
-  //     {
-  //       files: path.resolve("../icons/boxicons/svg/solid/*.svg"),
-  //       formatter: (name) => `BiSolid${name.replace("Bxs", "")}`,
-  //     },
-  //     {
-  //       files: path.resolve("../icons/boxicons/svg/logos/*.svg"),
-  //       formatter: (name) => `BiLogo${name.replace("Bxl", "")}`,
   //     },
   //   ],
   //   projectUrl: "https://github.com/atisawd/boxicons",
@@ -622,7 +499,7 @@ export const icons = [
   //   name: "css.gg",
   //   contents: [
   //     {
-  //       files: path.resolve("../icons/css.gg/icons/svg/*.svg"),
+  //       files: path.resolve("./icons/css.gg/icons/svg/*.svg"),
   //       formatter: (name) => `Cg${name}`,
   //     },
   //   ],
@@ -643,10 +520,7 @@ export const icons = [
   //   name: "VS Code Icons",
   //   contents: [
   //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/vscode-icons/src/icons/*.svg"
-  //       ),
+  //       files: path.resolve("./icons/vscode-codicons/src/icons/*.svg"),
   //       formatter: (name) => `Vsc${name}`,
   //     },
   //   ],
@@ -655,7 +529,7 @@ export const icons = [
   //   licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
   //   source: {
   //     type: "git",
-  //     localName: "vscode-icons",
+  //     localName: "vscode-codicons",
   //     remoteDir: "src/icons/",
   //     url: "https://github.com/microsoft/vscode-codicons.git",
   //     branch: "main",
@@ -667,18 +541,8 @@ export const icons = [
   //   name: "Tabler Icons",
   //   contents: [
   //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/tabler-icons/icons/filled/*.svg"
-  //       ),
+  //       files: path.resolve("./icons/tabler-icons/icons/*.svg"),
   //       formatter: (name) => `Tb${name}Filled`,
-  //     },
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/tabler-icons/icons/outline/*.svg"
-  //       ),
-  //       formatter: (name) => `Tb${name}`,
   //     },
   //   ],
   //   projectUrl: "https://github.com/tabler/tabler-icons",
@@ -698,7 +562,7 @@ export const icons = [
   //   name: "Themify Icons",
   //   contents: [
   //     {
-  //       files: path.resolve("../icons/themify-icons/SVG/*.svg"),
+  //       files: path.resolve("./icons/themify-icons/SVG/*.svg"),
   //       formatter: (name) => `Tfi${name}`,
   //     },
   //   ],
@@ -715,73 +579,71 @@ export const icons = [
   //     hash: "9600186b24a7242f0e1e0a186983e6253301bb5d",
   //   },
   // },
-  // {
-  //   id: "rx",
-  //   name: "Radix Icons",
-  //   contents: [
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/radix-icons/packages/radix-icons/icons/*.svg"
-  //       ),
-  //       formatter: (name) => `Rx${camelcase(name, { pascalCase: true })}`,
-  //     },
-  //   ],
-  //   projectUrl: "https://icons.radix-ui.com",
-  //   license: "MIT",
-  //   licenseUrl: "https://github.com/radix-ui/icons/blob/master/LICENSE",
-  //   source: {
-  //     type: "git",
-  //     localName: "radix-icons",
-  //     remoteDir: "packages/radix-icons/icons/",
-  //     url: "https://github.com/radix-ui/icons.git",
-  //     branch: "master",
-  //     hash: "94b3fcf4e972566b34cb3b3a36296f70a2558dfa",
-  //   },
-  // },
-  // {
-  //   id: "pi",
-  //   name: "Phosphor Icons",
-  //   contents: [
-  //     {
-  //       files: path.resolve(
-  //
-  //         "../../icons/phosphor-icons/assets/*/*.svg"
-  //       ),
-  //       formatter: (name) => `Pi${name}`,
-  //     },
-  //   ],
-  //   projectUrl: "https://github.com/phosphor-icons/core",
-  //   license: "MIT",
-  //   licenseUrl: "https://github.com/phosphor-icons/core/blob/main/LICENSE",
-  //   source: {
-  //     type: "git",
-  //     localName: "phosphor-icons",
-  //     remoteDir: "assets/",
-  //     url: "https://github.com/phosphor-icons/core.git",
-  //     branch: "main",
-  //     hash: "fe23e2534cdb7bec24bd8e6bd99b3676bcf0d54f",
-  //   },
-  // },
-  // {
-  //   id: "lia",
-  //   name: "Icons8 Line Awesome",
-  //   contents: [
-  //     {
-  //       files: path.resolve("../icons/line-awesome/svg/*.svg"),
-  //       formatter: (name) => `Lia${name}`,
-  //     },
-  //   ],
-  //   projectUrl: "https://icons8.com/line-awesome",
-  //   license: "MIT",
-  //   licenseUrl: "https://github.com/icons8/line-awesome/blob/master/LICENSE.md",
-  //   source: {
-  //     type: "git",
-  //     localName: "line-awesome",
-  //     remoteDir: "svg/",
-  //     url: "https://github.com/icons8/line-awesome.git",
-  //     branch: "master",
-  //     hash: "78a101217707c9b1c4dcf2a821be75684e36307f",
-  //   },
-  // },
+  // // {
+  // //   id: "rx",
+  // //   name: "Radix Icons",
+  // //   contents: [
+  // //     {
+  // //       files: path.resolve(
+  // //         "./icons/radix-icons/packages/radix-icons/icons/*.svg"
+  // //       ),
+  // //       formatter: (name) => `Rx${camelcase(name, { pascalCase: true })}`,
+  // //     },
+  // //   ],
+  // //   projectUrl: "https://icons.radix-ui.com",
+  // //   license: "MIT",
+  // //   licenseUrl: "https://github.com/radix-ui/icons/blob/master/LICENSE",
+  // //   source: {
+  // //     type: "git",
+  // //     localName: "radix-icons",
+  // //     remoteDir: "packages/radix-icons/icons/",
+  // //     url: "https://github.com/radix-ui/icons.git",
+  // //     branch: "master",
+  // //     hash: "94b3fcf4e972566b34cb3b3a36296f70a2558dfa",
+  // //   },
+  // // },
+  // // {
+  // //   id: "pi",
+  // //   name: "Phosphor Icons",
+  // //   contents: [
+  // //     {
+  // //       files: path.resolve("./icons/phosphor-icons/assets/*/*.svg"),
+  // //       formatter: (name) => `Pi${name}`,
+  // //     },
+  // //   ],
+  // //   projectUrl: "https://github.com/phosphor-icons/core",
+  // //   license: "MIT",
+  // //   licenseUrl: "https://github.com/phosphor-icons/core/blob/main/LICENSE",
+  // //   source: {
+  // //     type: "git",
+  // //     localName: "phosphor-icons",
+  // //     remoteDir: "assets/",
+  // //     url: "https://github.com/phosphor-icons/core.git",
+  // //     branch: "main",
+  // //     hash: "fe23e2534cdb7bec24bd8e6bd99b3676bcf0d54f",
+  // //   },
+  // // },
+
+  // // /////////// THis seem to already existt by LINE-AWESOME
+  // // {
+  // //   id: "lia",
+  // //   name: "Icons8 Line Awesome",
+  // //   contents: [
+  // //     {
+  // //       files: path.resolve("./icons/line-awesome/svg/*.svg"),
+  // //       formatter: (name) => `Lia${name}`,
+  // //     },
+  // //   ],
+  // //   projectUrl: "https://icons8.com/line-awesome",
+  // //   license: "MIT",
+  // //   licenseUrl: "https://github.com/icons8/line-awesome/blob/master/LICENSE.md",
+  // //   source: {
+  // //     type: "git",
+  // //     localName: "line-awesome",
+  // //     remoteDir: "svg/",
+  // //     url: "https://github.com/icons8/line-awesome.git",
+  // //     branch: "master",
+  // //     hash: "78a101217707c9b1c4dcf2a821be75684e36307f",
+  // //   },
+  // // },
 ];

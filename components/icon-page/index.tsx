@@ -18,6 +18,7 @@ function IconPage({ param }: { param: string }) {
           ? (_icons as any)?.map((icon: any, index: any) => (
               <InView
                 as="div"
+                key={index}
                 onChange={(inView, entry) => {
                   setInView(inView);
                   setEntry(entry);

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "node script/content-generator.js",
+    "predev": "node script/main.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

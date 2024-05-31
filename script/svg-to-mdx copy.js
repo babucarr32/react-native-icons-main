@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import fsPromise from "node:fs/promises";
+import { mkdir } from "node:fs/promises";
 import path from "path";
 import { icons } from "./icons.js";
 
@@ -43,7 +43,7 @@ const optimizeSvg = (svgString) => {
  * @param {string} data
  * @param {string | undefined} template
  */
-export const handleWriteFile = async (path, data, template, folderName) => {
+export const handleWriteFile = (path, data, template, folderName) => {
   const folderPath = path.split("/").slice(0, -1).join("/");
   const fileName = path.split("/").pop().split(".")[0];
   const extensionName = path.split("/").pop().split(".")[1];
@@ -59,11 +59,9 @@ export const handleWriteFile = async (path, data, template, folderName) => {
       .replace("<<extensionName>>", extensionName)
     : data?.replace(/\s+/g, " ").trim();
 
-  try {
-    await fsPromise.writeFile(path, modifiedData);
-  } catch (error) {
-    console.error(error)
-  }
+  fs.writeFile(path, modifiedData, (err) => {
+    if (err) throw err;
+  });
 };
 
 /**
@@ -112,7 +110,7 @@ export const handleMakeDir = async (folderPath, outputFolderName) => {
     ? path.join(outputFolderName, createdDir)
     : outputFolderName;
 
-  await fsPromise.mkdir(directory, { recursive: true }, (err, path) => {
+  await mkdir(directory, { recursive: true }, (err, path) => {
     if (err) throw err;
   });
 
@@ -127,7 +125,7 @@ export const handleMakeDir = async (folderPath, outputFolderName) => {
  * @param {string | boolean}  extension
  * @param {string} template
  */
-export const handleReadFile = async (
+export const handleReadFile = (
   filePath,
   relativePath,
   outputFolderName,
@@ -135,21 +133,20 @@ export const handleReadFile = async (
   template,
   folderName
 ) => {
-  await handleMakeDir(relativePath, outputFolderName);
-  if (filePath.endsWith(".svg")) {
-    const outputDir = generateOutputDirectory(
-      outputFolderName,
-      relativePath,
-      extension
-    );
+  handleMakeDir(relativePath, outputFolderName).then(() => {
+    if (filePath.endsWith(".svg")) {
+      const outputDir = generateOutputDirectory(
+        outputFolderName,
+        relativePath,
+        extension
+      );
 
-    try {
-      const data = await fsPromise.readFile(filePath, { encoding: "utf-8" });
-      await handleWriteFile(outputDir, optimizeSvg(data), template, folderName);
-    } catch (error) {
-      console.error(error)
+      fs.readFile(filePath, { encoding: "utf-8" }, (err, data) => {
+        if (err) throw err;
+        handleWriteFile(outputDir, optimizeSvg(data), template, folderName);
+      });
     }
-  }
+  });
 };
 
 /**
@@ -159,20 +156,22 @@ export const handleReadFile = async (
  * @param {string} extension
  * @param {string | boolean} template
  */
-export const convertFolder = async (
+export const convertFolder = (
   folderPath,
   outputFolderPath,
   extension,
   template = false
 ) => {
   const folderName = folderPath.split("/icons/")[1].split("/")[0];
-  try {
-    const files = await fsPromise.readdir(folderPath, { recursive: true });
+  fs.readdir(folderPath, { recursive: true }, (err, files) => {
+    if (err) {
+      return console.error(err);
+    }
+    const fullPaths = files.map((file) => {
+      const currentPath = path.join(folderPath, file);
+      const relativePath = path.join(file);
 
-    for (let i = 0; i < files.length; i++) {
-      const currentPath = path.join(folderPath, files[i]);
-      const relativePath = path.join(files[i]);
-      await handleReadFile(
+      handleReadFile(
         currentPath,
         relativePath,
         outputFolderPath,
@@ -180,10 +179,8 @@ export const convertFolder = async (
         template,
         folderName
       );
-    }
-  } catch (error) {
-    console.error(error);
-  }
+    });
+  });
 };
 
 const template = `---
@@ -192,19 +189,21 @@ folderName: <<folderName>>
 ---
 \`<<children>>\``;
 
-export const convertSVGToMDX = async () => {
-  console.log("Converting SVG to MDX...")
+const convertSVGToMDX = async () => {
   for (let i = 0; i < icons.length; i++) {
     const currentIcon = icons[i].contents;
     for (let ii = 0; ii < currentIcon.length; ii++) {
+      // console.log(currentIcon[ii].files.split("*.svg")[0]);
       const filePath = currentIcon[ii].files.split("*.svg")[0];
-      await convertFolder(
+      console.log(filePath);
+      convertFolder(
         filePath,
-        `./mdx/icons/${icons[i].source.localName}`,
+        `../mdx/icons/${icons[i].source.localName}`,
         "mdx",
         template
       );
     }
   }
-};
+}
+
 /// confitm LUCIDE clone *****************

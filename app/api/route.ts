@@ -1,35 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import {
-  allIcons,
-  IconType,
-  allDevicons,
-  allBoxicons,
-  allIonicons,
-  allHeroicons,
-  allGameIcons,
-  allCSSGGIcons,
-  allLucideIcons,
-  allLineAwesomes,
-  allFeatherIcons,
-  allAntDesignIcons,
-  allFlatColorIcons,
-} from "@/.contentlayer/generated";
+import { allCircumIcons } from "@/_contents/Circum-Icons";
+import { allGithubOcticonsIcons } from "@/_contents/octicons";
+import { allTypicons } from "@/_contents/typicons";
 
-const paths = {
-  googleIcons: allIcons,
-  devicons: allDevicons,
-  ionicons: allIonicons,
-  boxicons: allBoxicons,
-  heroicons: allHeroicons,
-  gameIcons: allGameIcons,
-  cssIcons: allCSSGGIcons,
-  lucideIcons: allLucideIcons,
-  featherIcons: allFeatherIcons,
-  antDesignIcons: allAntDesignIcons,
-  flatColorIcons: allFlatColorIcons,
-  lineAwesomeIcons: allLineAwesomes,
-};
+// import {
+//   allIcons,
+//   IconType,
+//   allDevicons,
+//   allBoxicons,
+//   allIonicons,
+//   allHeroicons,
+//   allGameIcons,
+//   allCSSGGIcons,
+//   allLucideIcons,
+//   allLineAwesomes,
+//   allFeatherIcons,
+//   allAntDesignIcons,
+//   allFlatColorIcons,
+// } from "@/.contentlayer/generated";
+
+// const paths = {
+//   googleIcons: allIcons,
+//   devicons: allDevicons,
+//   ionicons: allIonicons,
+//   boxicons: allBoxicons,
+//   heroicons: allHeroicons,
+//   gameIcons: allGameIcons,
+//   cssIcons: allCSSGGIcons,
+//   lucideIcons: allLucideIcons,
+//   featherIcons: allFeatherIcons,
+//   antDesignIcons: allAntDesignIcons,
+//   flatColorIcons: allFlatColorIcons,
+//   lineAwesomeIcons: allLineAwesomes,
+// };
 
 export const fetchIcons = async (
   pageParam: number,
@@ -44,15 +48,18 @@ export const fetchIcons = async (
   }
 
   console.log({ firstPosition, lastPosition });
-  if (searchValue) {
-    const filteredIcons =
-      paths[path]?.filter((icon: IconType) =>
-        icon.name.includes(searchValue)
-      ) || [];
-    return filteredIcons.slice(firstPosition, lastPosition) as any;
-  }
+  // if (searchValue) {
+  //   const filteredIcons =
+  //     paths[path]?.filter((icon: IconType) =>
+  //       icon.name.includes(searchValue)
+  //     ) || [];
+  //   return filteredIcons.slice(firstPosition, lastPosition) as any;
+  // }
 
-  return path ? (paths[path]?.slice(firstPosition, lastPosition) as any) : [];
+  // return path ? (paths[path]?.slice(firstPosition, lastPosition) as any) : [];
+  return path
+    ? (allGithubOcticonsIcons.slice(firstPosition, lastPosition) as any)
+    : [];
 };
 
 export async function POST(request: NextRequest) {

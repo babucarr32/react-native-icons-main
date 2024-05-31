@@ -21,6 +21,16 @@ const generateTitleCase = (text) => {
   return text;
 };
 
+/**
+ *
+ * @param {string} path
+ */
+const fsMakeDir = async (path, recursive = true) => {
+  await fsPromise.mkdir(path, { recursive }, (err, path) => {
+    if (err) throw err;
+  });
+};
+
 let fileData = "";
 /**
  *
@@ -99,44 +109,60 @@ const handleReadDir = async (folderPath) => {
   }
 };
 
-for (let i = 0; i < icons.length; i++) {
-  const folderName = icons[i].source.localName;
-  const outputDir = path.join("./_contents", folderName);
+await fsPromise.rm("./_contents/", { recursive: true, force: true });
+await fsMakeDir("icons");
+await fsMakeDir("mdx/icons");
 
-  try {
-    await fsPromise.mkdir(outputDir, (err, path) => {
-      if (err) throw err;
-    });
-  } catch (err) { }
+export const generateContent = async () => {
+  console.log("Generating contents...");
+  for (let i = 0; i < icons.length; i++) {
+    try {
+      const folderName = icons[i].source.localName;
+      const outputDir = path.join("./_contents", folderName);
 
-  const result = await handleReadDir(`./mdx/icons/${folderName}`);
-  const { files, dir: folderDir } = result;
+      try {
+        await fsMakeDir(outputDir);
+      } catch (err) { }
 
-  let tsDir;
-  let generatedTypes;
-  const iconName = icons[i]?.name;
-  fileData = getInitialData(iconName);
+      const result = await handleReadDir(`./mdx/icons/${folderName}`);
+      const { files, dir: folderDir } = result;
 
-  for (let i = 0; i < files.length; i++) {
-    const currentPath = path.join(folderDir, files[i]);
-    const relativePath = path.join(files[i]);
-    const fileToWrite = await handleReadFile(
-      currentPath,
-      relativePath.replace(".mdx", ".js"),
-      outputDir,
-      iconName
-    );
+      let tsDir;
+      let generatedTypes;
+      const iconName = icons[i]?.name;
+      fileData = getInitialData(iconName);
 
-    const { OUTPUT: dir, replacedFileData: data, declaredTypes } = fileToWrite;
-    tsDir = dir.replace(".js", ".d.ts");
+      console.log(`Generate: ${iconName} ${i + 1}/${icons.length}`);
 
-    generatedTypes = generateTypes(iconName, declaredTypes);
+      for (let i = 0; i < files.length; i++) {
+        const currentPath = path.join(folderDir, files[i]);
+        const relativePath = path.join(files[i]);
+        const fileToWrite = await handleReadFile(
+          currentPath,
+          relativePath.replace(".mdx", ".js"),
+          outputDir,
+          iconName
+        );
 
-    await fsPromise.writeFile(dir, data, (err) => {
-      if (err) throw err;
-    });
+        const {
+          OUTPUT: dir,
+          replacedFileData: data,
+          declaredTypes,
+        } = fileToWrite;
+        tsDir = dir.replace(".js", ".d.ts");
+
+        generatedTypes = generateTypes(iconName, declaredTypes);
+
+        await fsPromise.writeFile(dir, data, (err) => {
+          if (err) throw err;
+        });
+      }
+      await fsPromise.writeFile(tsDir, generatedTypes, (err) => {
+        if (err) throw err;
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
-  await fsPromise.writeFile(tsDir, generatedTypes, (err) => {
-    if (err) throw err;
-  });
-}
+};
+generateContent()
