@@ -38,6 +38,7 @@
     "react-dom": "^18",
     "react-intersection-observer": "^9.10.2",
     "react-wrap-balancer": "^1.1.0",
+    "simple-git": "^3.24.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
