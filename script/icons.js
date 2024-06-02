@@ -9,7 +9,7 @@ export const icons = [
     logo: "/images/logo/circum-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/Circum-Icons/svg/*.svg"),
+        files: "icons/Circum-Icons/svg/*.svg"
       },
     ],
     projectUrl: "https://circumicons.com/",
@@ -33,7 +33,7 @@ export const icons = [
 
   //   contents: [
   //     {
-  //       files: path.resolve(process.cwd(), "icons/fontawesome/svgs/*.svg"),
+  //       files: "icons/fontawesome/svgs/*.svg"
   //     },
   //   ],
   //   projectUrl: "https://fontawesome.com/",
@@ -54,10 +54,10 @@ export const icons = [
   // //   name: "Ionicons 5",
   // //   contents: [
   // //     {
-  // //       files: path.resolve(
+  // //       files: 
 
   // //         "..node_modules/ionicons-5/dist/svg/*.svg"
-  // //       ),
+  // //       
   // //       processWithSVGO: true,
   // //     },
   // //   ],
@@ -73,7 +73,7 @@ export const icons = [
   //   name: "Material Design icons",
   //   contents: [
   //     {
-  //       files: path.resolve(process.cwd(), "icons/material-design-icons/src/24px.svg"),
+  //       files: "icons/material-design-icons/src/24px.svg"
   //     },
   //   ],
   //   projectUrl: "http://google.github.io/material-design-icons/",
@@ -97,7 +97,7 @@ export const icons = [
     logo: "/images/logo/typicons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/typicons/src/svg/*.svg"),
+        files: "icons/typicons/src/svg/*.svg"
       },
     ],
     projectUrl: "http://s-ings.com/typicons/",
@@ -119,7 +119,7 @@ export const icons = [
     logo: "/images/logo/octicons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/octicons/icons/*.svg"),
+        files: "icons/octicons/icons/*.svg"
       },
     ],
     source: {
@@ -139,7 +139,7 @@ export const icons = [
     contents: [
       {
         localName: "feather",
-        files: path.resolve(process.cwd(), "icons/feather/icons/*.svg"),
+        files: "icons/feather/icons/*.svg"
       },
     ],
     projectUrl: "https://feathericons.com/",
@@ -158,7 +158,7 @@ export const icons = [
     logo: "/images/logo/lucide-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/lucide-static/icons/*.svg"),
+        files: "icons/lucide-static/icons/*.svg"
       },
     ],
     projectUrl: "https://lucide.dev/",
@@ -177,7 +177,7 @@ export const icons = [
     logo: "/images/logo/game-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/game-icons-inverted/all-icons/*.svg"),
+        files: "icons/game-icons-inverted/all-icons/*.svg"
       },
     ],
     projectUrl: "https://game-icons.net/",
@@ -199,7 +199,7 @@ export const icons = [
     logo: "/images/logo/game-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/weather-icons/svg/*.svg"),
+        files: "icons/weather-icons/svg/*.svg"
       },
     ],
     projectUrl: "https://erikflowers.github.io/weather-icons/",
@@ -221,7 +221,7 @@ export const icons = [
     logo: "/images/logo/devicons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/devicons/!SVG/*.svg"),
+        files: "icons/devicons/!SVG/*.svg"
       },
     ],
     projectUrl: "https://vorillaz.github.io/devicons/",
@@ -244,9 +244,9 @@ export const icons = [
     // This path has multiple icons in folder TODO
     contents: [
       {
-        files: path.resolve(
+        files:
           "icons/ant-design-icons/packages/icons-svg/svg/filled/*.svg"
-        ),
+
       },
     ],
     projectUrl: "https://github.com/ant-design/ant-design-icons",
@@ -269,19 +269,19 @@ export const icons = [
 
   //   contents: [
   //     {
-  //       files: path.resolve(
+  //       files: 
   //         "icons/bootstrap/icons/*!(-reverse)-fill.svg"
-  //       ),
+  //       
   //     },
   //     {
-  //       files: path.resolve(
+  //       files: 
   //         "icons/bootstrap/icons/*-reverse!(-fill).svg"
-  //       ),
+  //       
   //     },
   //     {
-  //       files: path.resolve(
+  //       files: 
   //         "icons/bootstrap/icons/*!(-fill|-reverse|reverse-).svg"
-  //       ),
+  //       
   //     },
   //   ],
   //   projectUrl: "https://github.com/twbs/icons",
@@ -303,7 +303,7 @@ export const icons = [
     logo: "/images/logo/remix-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/RemixIcon/icons/*.svg"),
+        files: "icons/RemixIcon/icons/*.svg"
       },
     ],
     projectUrl: "https://github.com/Remix-Design/RemixIcon",
@@ -325,7 +325,7 @@ export const icons = [
     logo: "/images/logo/flat-color-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/flat-color-icons/svg/*.svg"),
+        files: "icons/flat-color-icons/svg/*.svg",
         multiColor: true,
       },
     ],
@@ -348,7 +348,7 @@ export const icons = [
     logo: "/images/logo/grommet-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/grommet-icons/public/img/*.svg"),
+        files: "icons/grommet-icons/public/img/*.svg"
       },
     ],
     projectUrl: "https://github.com/grommet/grommet-icons",
@@ -370,7 +370,7 @@ export const icons = [
     logo: "/images/logo/heroicons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/heroicons/optimized/*.svg"),
+        files: "icons/heroicons/optimized/*.svg"
       },
     ],
     projectUrl: "https://github.com/tailwindlabs/heroicons",
@@ -392,15 +392,15 @@ export const icons = [
   // logo: "/images/logo/heroicons.png",
   //   contents: [
   //     {
-  //       files: path.resolve(process.cwd(), "icons/heroicons-2/optimized/24/solid/*.svg"),
+  //       files: "icons/heroicons-2/optimized/24/solid/*.svg"
   //     },
   //     {
-  //       files: path.resolve(
+  //       files: 
   //         "icons/heroicons-2/optimized/24/outline/*.svg"
-  //       ),
+  //       
   //     },
   //     {
-  //       files: path.resolve(process.cwd(), "icons/heroicons-2/optimized/20/solid/*.svg"),
+  //       files: "icons/heroicons-2/optimized/20/solid/*.svg"
   //     },
   //   ],
   //   projectUrl: "https://github.com/tailwindlabs/heroicons",
@@ -422,7 +422,7 @@ export const icons = [
     logo: "/images/logo/simple-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/simple-icons/icons/*.svg"),
+        files: "icons/simple-icons/icons/*.svg"
       },
     ],
     projectUrl: "https://simpleicons.org/",
@@ -444,7 +444,7 @@ export const icons = [
     logo: "/images/logo/simple-line-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/simple-line-icons/src/svgs/*.svg"),
+        files: "icons/simple-line-icons/src/svgs/*.svg"
       },
     ],
     projectUrl: "https://thesabbir.github.io/simple-line-icons/",
@@ -466,7 +466,7 @@ export const icons = [
     logo: "/images/logo/ico-moon-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/icomoon-free/SVG/*.svg"),
+        files: "icons/icomoon-free/SVG/*.svg"
       },
     ],
     projectUrl: "https://github.com/Keyamoon/IcoMoon-Free",
@@ -489,7 +489,7 @@ export const icons = [
     logo: "/images/logo/boxicons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/boxicons/svg/*.svg"),
+        files: "icons/boxicons/svg/*.svg"
       },
     ],
     projectUrl: "https://github.com/atisawd/boxicons",
@@ -511,7 +511,7 @@ export const icons = [
     logo: "/images/logo/cssgg.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/css.gg/icons/svg/*.svg"),
+        files: "icons/css.gg/icons/svg/*.svg"
       },
     ],
     projectUrl: "https://github.com/astrit/css.gg",
@@ -533,7 +533,7 @@ export const icons = [
     logo: "/images/logo/vs-code-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/vscode-codicons/src/icons/*.svg"),
+        files: "icons/vscode-codicons/src/icons/*.svg"
       },
     ],
     projectUrl: "https://github.com/microsoft/vscode-codicons",
@@ -555,7 +555,7 @@ export const icons = [
     logo: "/images/logo/tabler-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/tabler-icons/icons/*.svg"),
+        files: "icons/tabler-icons/icons/*.svg"
       },
     ],
     projectUrl: "https://github.com/tabler/tabler-icons",
@@ -577,7 +577,7 @@ export const icons = [
     logo: "/images/logo/themify-icons.png",
     contents: [
       {
-        files: path.resolve(process.cwd(), "icons/themify-icons/SVG/*.svg"),
+        files: "icons/themify-icons/SVG/*.svg"
       },
     ],
     projectUrl: "https://github.com/lykmapipo/themify-icons",
@@ -601,9 +601,9 @@ export const icons = [
 
   // //   contents: [
   // //     {
-  // //       files: path.resolve(
+  // //       files: 
   // //         "icons/radix-icons/packages/radix-icons/icons/*.svg"
-  // //       ),
+  // //       
   // //     },
   // //   ],
   // //   projectUrl: "https://icons.radix-ui.com",
@@ -626,7 +626,7 @@ export const icons = [
   // //   name: "Phosphor Icons",
   // //   contents: [
   // //     {
-  // //       files: path.resolve(process.cwd(), "icons/phosphor-icons/assets/*/*.svg"),
+  // //       files: "icons/phosphor-icons/assets/*/*.svg"
   // //     },
   // //   ],
   // //   projectUrl: "https://github.com/phosphor-icons/core",
@@ -650,7 +650,7 @@ export const icons = [
   // //   name: "Icons8 Line Awesome",
   // //   contents: [
   // //     {
-  // //       files: path.resolve(process.cwd(), "icons/line-awesome/svg/*.svg"),
+  // //       files: "icons/line-awesome/svg/*.svg"
   // //     },
   // //   ],
   // //   projectUrl: "https://icons8.com/line-awesome",
