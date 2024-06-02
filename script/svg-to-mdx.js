@@ -200,7 +200,7 @@ export const convertSVGToMDX = async () => {
       const filePath = currentIcon[ii].files.split("*.svg")[0];
       await convertFolder(
         filePath,
-        `mdx/icons/${icons[i].source.localName}`,
+        path.join(process.cwd(), `mdx/icons/${icons[i].source.localName}`),
         "mdx",
         template
       );

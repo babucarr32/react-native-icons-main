@@ -12,9 +12,11 @@ try {
     try {
       execSync(`git clone ${source} ${localName}`, {
         stdio: [0, 1, 2],
-        cwd: "icons",
+        cwd: path.join(process.cwd(), "icons"),
       });
-    } catch (error) { }
+    } catch (error) {
+      console.log(error)
+    }
   }
   await convertSVGToMDX()
   await generateContent()

@@ -112,20 +112,20 @@ const handleReadDir = async (folderPath) => {
 };
 
 export const generateContent = async () => {
-  await fsPromise.rm("_contents/", { recursive: true, force: true });
-  await fsMakeDir("icons");
-  await fsMakeDir("mdx/icons");
+  await fsPromise.rm(path.join(process.cwd(), "_contents/"), { recursive: true, force: true });
+  await fsMakeDir(path.join(process.cwd(), "icons"));
+  await fsMakeDir(path.join(process.cwd(), "mdx/icons"));
   console.log("Generating contents...\n");
   for (let i = 0; i < icons.length; i++) {
     try {
       const folderName = icons[i].source.localName;
-      const outputDir = path.join("_contents", folderName);
+      const outputDir = path.join(process.cwd(), "_contents", folderName);
 
       try {
         await fsMakeDir(outputDir);
       } catch (err) { }
 
-      const result = await handleReadDir(`mdx/icons/${folderName}`);
+      const result = await handleReadDir(path.join(process.cwd(), `mdx/icons/${folderName}`));
       const { files, dir: folderDir } = result;
 
       let tsDir;
