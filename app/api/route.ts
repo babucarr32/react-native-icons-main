@@ -45,7 +45,7 @@ const paths = {
   simpleLineIcons: allSimpleLineIcons,
 };
 
-export const fetchIcons = async (
+const fetchIcons = async (
   pageParam: number,
   path: keyof typeof paths,
   searchValue: string

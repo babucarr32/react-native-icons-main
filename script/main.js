@@ -12,7 +12,7 @@ try {
     try {
       execSync(`git clone ${source} ${localName}`, {
         stdio: [0, 1, 2],
-        cwd: "./icons",
+        cwd: "icons",
       });
     } catch (error) { }
   }
