@@ -11,7 +11,6 @@ import {
   DialogHeader,
   DialogContent,
 } from "@/components/ui/dialog";
-// import { Icons } from "@/.contentlayer/generated";
 
 import {
   jotaiOptions,
@@ -22,16 +21,6 @@ import {
   jotaiReplaceAttrValues,
   currentColorAtom,
 } from "../icon-page/side-menu";
-
-// export type IconType = {
-//   snippet: Icons & {
-//     stroke: boolean;
-//     colored: boolean;
-//     setSize: boolean;
-//     strokeAndFill: boolean;
-//     pathColor: boolean;
-//   };
-// };
 
 function ErrorDialog({
   open,
@@ -69,7 +58,6 @@ function Icon({ snippet }: any) {
 
   const [copying, setCopying] = useState<number>(0);
 
-  // const stringified = JSON.stringify(snippet.body.raw);
   const stringified = JSON.stringify(snippet._raw);
   const codeString = JSON.parse(stringified).replaceAll("`", "");
 
@@ -79,7 +67,6 @@ function Icon({ snippet }: any) {
       const replaceAttrValues = replaceAttrValuesValue
         ? JSON.parse(replaceAttrValuesValue)
         : [];
-      console.log(replaceAttrValues);
 
       const svgProps = svgPropsValue ? JSON.parse(svgPropsValue) : [];
 

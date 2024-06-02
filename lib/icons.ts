@@ -40,8 +40,8 @@ export const Icons = [
     logo: "/images/logo/gfonts.png",
   },
   {
-    name: "CSS Icons",
-    path: "cssIcons",
+    name: "CSS.GG Icons",
+    path: "cssGGIcons",
     logo: "/images/logo/cssgg.png",
   },
   {
@@ -54,19 +54,19 @@ export const Icons = [
     path: "antDesignIcons",
     logo: "/images/logo/group.png",
   },
-  {
-    name: "Line Awesome Icons",
-    path: "lineAwesomeIcons",
-    logo: "/images/logo/line-awesome-icons.png",
-  },
-  {
-    name: "Icon Moon",
-    path: "iconMoon",
-    logo: "/images/logo/iconMoon.png",
-  },
-  {
-    name: "Ionicons",
-    path: "ionicons",
-    logo: "/images/logo/ionicons.png",
-  },
+  // {
+  //   name: "Line Awesome Icons",
+  //   path: "lineAwesomeIcons",
+  //   logo: "/images/logo/line-awesome-icons.png",
+  // },
+  // {
+  //   name: "Icon Moon",
+  //   path: "iconMoon",
+  //   logo: "/images/logo/iconMoon.png",
+  // },
+  // {
+  //   name: "Ionicons",
+  //   path: "ionicons",
+  //   logo: "/images/logo/ionicons.png",
+  // },
 ];

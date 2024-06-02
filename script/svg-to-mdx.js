@@ -193,7 +193,7 @@ folderName: <<folderName>>
 \`<<children>>\``;
 
 export const convertSVGToMDX = async () => {
-  console.log("Converting SVG to MDX...")
+  console.log("Converting SVG to MDX...\n")
   for (let i = 0; i < icons.length; i++) {
     const currentIcon = icons[i].contents;
     for (let ii = 0; ii < currentIcon.length; ii++) {

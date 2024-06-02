@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "predev": "node script/main.js",
+    "prebuild": "node script/main.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

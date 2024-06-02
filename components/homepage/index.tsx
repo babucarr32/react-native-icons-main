@@ -3,7 +3,8 @@ import React from "react";
 
 import Link from "next/link";
 import IconCard from "./icon-card";
-import { Icons } from "@/lib/icons";
+// import { Icons } from "@/lib/icons";
+import { icons } from "../../script/icons";
 import Balancer from "react-wrap-balancer";
 
 function Homepage() {
@@ -23,7 +24,7 @@ function Homepage() {
       </div>
 
       <div className="flex flex-wrap gap-5 justify-center mt-5 md:mt-10 lg:mt-20">
-        {Icons.map(({ logo, name, path }, index) => (
+        {icons.map(({ logo, name, path }, index) => (
           <Link target="_blank" key={index} href={`/icon/${path}`}>
             <IconCard src={logo} name={name} />
           </Link>

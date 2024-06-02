@@ -4,16 +4,20 @@ import { atom, useAtom } from "jotai";
 
 import { fetchIcons } from "@/lib/getIcons";
 
-const dataAtom = atom<any[]>([]);
-const searchAtom = atom("");
 const countAtom = atom(0);
+const searchAtom = atom("");
+const dataAtom = atom<any[]>([]);
 const fetchedAllAtom = atom(false);
+const isFirstLoadAtom = atom(true);
+const iconInfoAtom = atom({ license: "", github: "" });
 
 function useQuery(path?: string) {
   const [data, setData] = useAtom(dataAtom);
+  const [isFirstLoad, setIsFirstLoad] = useAtom(isFirstLoadAtom);
   const [loading, setLoading] = useState(false);
   const [fetchedAll, setFetchedAll] = useAtom(fetchedAllAtom);
   const [searchValue, setSearchValue] = useAtom(searchAtom);
+  const [iconInfo, setIconInfo] = useAtom(iconInfoAtom);
   const [inView, setInView] = useState<any>();
   const [entry, setEntry] = useState<any>({});
 
@@ -22,8 +26,9 @@ function useQuery(path?: string) {
   useEffect(() => {
     const handleExec = async () => {
       if (path) {
-        const result = await fetchIcons(countRef, path as any, searchValue);
-        setData(result);
+        const { icons } = await fetchIcons(countRef, path as any, searchValue);
+        setIsFirstLoad(false);
+        setData(icons);
         setCountRef(countRef + 1);
       }
     };
@@ -34,22 +39,24 @@ function useQuery(path?: string) {
     const handleSetIntersection = () => {
       if (entry?.isIntersecting && !fetchedAll) {
         setLoading(true);
-        fetchIcons(countRef, path as any, searchValue).then((result) => {
-          setFetchedAll(result.length === 0);
-          setData((prev) => [...prev, ...result]);
-          setLoading(false);
-          setCountRef((prev) => {
-            return prev + 1;
-          });
-        });
+        fetchIcons(countRef, path as any, searchValue).then(
+          ({ icons, fetchedAll }) => {
+            setFetchedAll(fetchedAll);
+            setData((prev) => [...prev, ...icons]);
+            setLoading(false);
+            setCountRef((prev) => {
+              return prev + 1;
+            });
+          }
+        );
       }
     };
     handleSetIntersection();
   }, [inView, countRef, fetchedAll]);
 
   const handleSearch = async (searchValue: string) => {
-    fetchIcons(0, path as any, searchValue).then((result) => {
-      setData([...result]);
+    fetchIcons(0, path as any, searchValue).then(({ icons, fetchedAll }) => {
+      setData([...icons]);
       setLoading(false);
 
       if (!searchValue) {
@@ -58,12 +65,12 @@ function useQuery(path?: string) {
         setCountRef(() => 1);
       }
 
-      setFetchedAll(false);
+      setFetchedAll(fetchedAll);
       setSearchValue(searchValue);
     });
   };
 
-  return { data, loading, handleSearch, setInView, setEntry };
+  return { data, loading, handleSearch, isFirstLoad, setInView, setEntry };
 }
 
 export default useQuery;

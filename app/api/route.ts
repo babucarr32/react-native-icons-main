@@ -1,39 +1,49 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { allCircumIcons } from "@/_contents/Circum-Icons";
-import { allGithubOcticonsIcons } from "@/_contents/octicons";
+import { allCssGg } from "@/_contents/css.gg";
+import { allFeather } from "@/_contents/feather";
+import { allBoxIcons } from "@/_contents/boxicons";
 import { allTypicons } from "@/_contents/typicons";
+import { allDevicons } from "@/_contents/devicons";
+import { allRemixIcon } from "@/_contents/RemixIcon";
+import { allHeroicons } from "@/_contents/heroicons";
+import { allLucide } from "@/_contents/lucide-static";
+import { allTablerIcons } from "@/_contents/tabler-icons";
+import { allSimpleIcons } from "@/_contents/simple-icons";
+import { allThemifyIcons } from "@/_contents/themify-icons";
+import { allWeatherIcons } from "@/_contents/weather-icons";
+import { allGrommetIcons } from "@/_contents/grommet-icons";
+import { allVSCodeIcons } from "@/_contents/vscode-codicons";
+import { allGithubOcticonsIcons } from "@/_contents/octicons";
+import { allGameIcons } from "@/_contents/game-icons-inverted";
+import { Icon, allCircumIcons } from "@/_contents/Circum-Icons";
+import { allAntDesignIcons } from "@/_contents/ant-design-icons";
+import { allFlatColorIcons } from "@/_contents/flat-color-icons";
+import { allSimpleLineIcons } from "@/_contents/simple-line-icons";
 
-// import {
-//   allIcons,
-//   IconType,
-//   allDevicons,
-//   allBoxicons,
-//   allIonicons,
-//   allHeroicons,
-//   allGameIcons,
-//   allCSSGGIcons,
-//   allLucideIcons,
-//   allLineAwesomes,
-//   allFeatherIcons,
-//   allAntDesignIcons,
-//   allFlatColorIcons,
-// } from "@/.contentlayer/generated";
-
-// const paths = {
-//   googleIcons: allIcons,
-//   devicons: allDevicons,
-//   ionicons: allIonicons,
-//   boxicons: allBoxicons,
-//   heroicons: allHeroicons,
-//   gameIcons: allGameIcons,
-//   cssIcons: allCSSGGIcons,
-//   lucideIcons: allLucideIcons,
-//   featherIcons: allFeatherIcons,
-//   antDesignIcons: allAntDesignIcons,
-//   flatColorIcons: allFlatColorIcons,
-//   lineAwesomeIcons: allLineAwesomes,
-// };
+const paths = {
+  // googleIcons: allIcons,
+  cssGGIcons: allCssGg,
+  boxicons: allBoxIcons,
+  typicons: allTypicons,
+  devicons: allDevicons,
+  lucideIcons: allLucide,
+  gameIcons: allGameIcons,
+  heroicons: allHeroicons,
+  featherIcons: allFeather,
+  remixIcons: allRemixIcon,
+  simpleIcons: allSimpleIcons,
+  tablerIcons: allTablerIcons,
+  VSCodeIcons: allVSCodeIcons,
+  circumIcons: allCircumIcons,
+  themifyIcons: allThemifyIcons,
+  weatherIcons: allWeatherIcons,
+  grommetIcons: allGrommetIcons,
+  octicons: allGithubOcticonsIcons,
+  antDesignIcons: allAntDesignIcons,
+  flatColorIcons: allFlatColorIcons,
+  simpleLineIcons: allSimpleLineIcons,
+};
 
 export const fetchIcons = async (
   pageParam: number,
@@ -47,26 +57,33 @@ export const fetchIcons = async (
     lastPosition = firstPosition + 50;
   }
 
-  console.log({ firstPosition, lastPosition });
-  // if (searchValue) {
-  //   const filteredIcons =
-  //     paths[path]?.filter((icon: IconType) =>
-  //       icon.name.includes(searchValue)
-  //     ) || [];
-  //   return filteredIcons.slice(firstPosition, lastPosition) as any;
-  // }
+  const fetchedAll = lastPosition >= paths[path].length;
 
-  // return path ? (paths[path]?.slice(firstPosition, lastPosition) as any) : [];
+  console.log({ firstPosition, lastPosition });
+  if (searchValue) {
+    const filteredIcons =
+      paths[path]?.filter((icon: Icon) =>
+        icon.name.toLowerCase().includes(searchValue.toLowerCase())
+      ) || [];
+    return {
+      icons: filteredIcons.slice(firstPosition, lastPosition) as any,
+      fetchedAll,
+    };
+  }
+
   return path
-    ? (allGithubOcticonsIcons.slice(firstPosition, lastPosition) as any)
-    : [];
+    ? {
+        icons: paths[path]?.slice(firstPosition, lastPosition) as any,
+        fetchedAll,
+      }
+    : { icons: [], fetchIcons: true };
 };
 
 export async function POST(request: NextRequest) {
   const req = await request.json();
   const { pageParam, path, searchValue } = req;
 
-  const result = await fetchIcons(pageParam, path, searchValue);
+  const { icons, fetchedAll } = await fetchIcons(pageParam, path, searchValue);
 
-  return NextResponse.json(result);
+  return NextResponse.json({ icons, fetchedAll });
 }
