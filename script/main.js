@@ -13,7 +13,7 @@ try {
     const localName = icons[i].source.localName;
     try {
       console.log("Cloning", source, "to", `${path.join(process.cwd(), "icons", localName)}`)
-      await git.clone(source, path.join(process.cwd(), path.join(process.cwd(), "icons", localName)))
+      await git.clone(source, path.join(process.cwd(), path.join("icons", localName)))
     } catch (error) {
       console.log(error)
     }

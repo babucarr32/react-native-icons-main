@@ -1,5 +1,6 @@
 node_modules/
 icons/*
+icons2/*
 mdx/icons/*
 .next
 _contents/*
