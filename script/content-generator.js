@@ -88,7 +88,7 @@ const handleReadFile = async (
       if (metaData[i]) {
         const [key, value] = metaData[i].split(":");
         newMetaData += `${key}: '${value?.trim()}',`;
-        declaredTypes += `${key}: string,\n\t`;
+        declaredTypes += `${key}: string;\n\t`;
       }
     }
     metaData = newMetaData;
@@ -96,6 +96,7 @@ const handleReadFile = async (
       "];",
       `{_raw: \`${rawData}\`, ${newMetaData}},];`
     );
+    declaredTypes += `_raw: string;`;
     return { OUTPUT, replacedFileData, declaredTypes };
   }
 };
@@ -111,60 +112,99 @@ const handleReadDir = async (folderPath) => {
   }
 };
 
-export const generateContent = async () => {
-  await fsPromise.rm(path.join(process.cwd(), "_contents/"), { recursive: true, force: true });
-  await fsMakeDir(path.join(process.cwd(), "icons"));
-  await fsMakeDir(path.join(process.cwd(), "mdx/icons"));
-  console.log("Generating contents...\n");
-  for (let i = 0; i < icons.length; i++) {
+/**
+ *
+ * @param {number} index
+ */
+const handleGenerateContent = async (index, _icons) => {
+  try {
+    const folderName = _icons[index].source.localName;
+    const outputDir = path.join(process.cwd(), "_contents", folderName);
+
     try {
-      const folderName = icons[i].source.localName;
-      const outputDir = path.join(process.cwd(), "_contents", folderName);
+      await fsMakeDir(outputDir);
+    } catch (err) { }
 
-      try {
-        await fsMakeDir(outputDir);
-      } catch (err) { }
+    const result = await handleReadDir(
+      path.join(process.cwd(), `mdx/icons/${folderName}`)
+    );
+    const { files, dir: folderDir } = result;
 
-      const result = await handleReadDir(path.join(process.cwd(), `mdx/icons/${folderName}`));
-      const { files, dir: folderDir } = result;
+    let tsDir;
+    let generatedTypes;
+    const iconName = _icons[index]?.name;
+    fileData = getInitialData(iconName);
 
-      let tsDir;
-      let generatedTypes;
-      const iconName = icons[i]?.name;
-      fileData = getInitialData(iconName);
+    console.log(`Generate: ${iconName} ${index + 1}/${_icons.length}`);
 
-      console.log(`Generate: ${iconName} ${i + 1}/${icons.length}`);
+    for (let i = 0; i < files.length; i++) {
+      const currentPath = path.join(folderDir, files[i]);
+      const relativePath = path.join(files[i]);
+      const fileToWrite = await handleReadFile(
+        currentPath,
+        relativePath.replace(".mdx", ".js"),
+        outputDir,
+        iconName
+      );
 
-      for (let i = 0; i < files.length; i++) {
-        const currentPath = path.join(folderDir, files[i]);
-        const relativePath = path.join(files[i]);
-        const fileToWrite = await handleReadFile(
-          currentPath,
-          relativePath.replace(".mdx", ".js"),
-          outputDir,
-          iconName
-        );
+      if (fileToWrite) {
+        const {
+          OUTPUT: dir,
+          replacedFileData: data,
+          declaredTypes,
+        } = fileToWrite;
+        tsDir = dir.replace(".js", ".d.ts");
 
-        if (fileToWrite) {
-          const {
-            OUTPUT: dir,
-            replacedFileData: data,
-            declaredTypes,
-          } = fileToWrite;
-          tsDir = dir.replace(".js", ".d.ts");
+        generatedTypes = generateTypes(iconName, declaredTypes);
 
-          generatedTypes = generateTypes(iconName, declaredTypes);
-
-          await fsPromise.writeFile(dir, data, (err) => {
-            if (err) throw err;
-          });
-          await fsPromise.writeFile(tsDir, generatedTypes, (err) => {
-            if (err) throw err;
-          });
-        }
+        await fsPromise.writeFile(dir, data, (err) => {
+          if (err) throw err;
+        });
+        await fsPromise.writeFile(tsDir, generatedTypes, (err) => {
+          if (err) throw err;
+        });
       }
-    } catch (err) {
-      console.error(err);
     }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+/**
+ *
+ * @param {string[]} repos
+ */
+export const generateContent = async (repos) => {
+  /*
+    If repos are updated generate contents only for updated repos 
+  */
+  console.log("Generating contents...");
+  if (repos.length) {
+    const filteredRepos = icons.filter((icon) =>
+      repos.includes(icon.source.localName)
+    );
+    for (let i = 0; i < filteredRepos.length; i++) {
+      try {
+        /*
+        Delete folder before generating icons
+        */
+        await fsPromise.rm(
+          path.join(
+            process.cwd(),
+            `_contents/${filteredRepos[i].source.localName}`
+          ),
+          {
+            recursive: true,
+            force: true,
+          }
+        );
+        await handleGenerateContent(i, filteredRepos);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    console.log("\n");
+  } else {
+    console.log("Generate content: Everything up-to-date. \n")
   }
 };

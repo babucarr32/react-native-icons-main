@@ -12,10 +12,10 @@ export function SmallDeviceSideMenu() {
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent side={"left"}>
+      <SheetContent className="w-fit" side={"left"}>
         <ScrollArea>
           <SideMenu />
-          <ScrollBar orientation="horizontal" />
+          {/* <ScrollBar orientation="horizontal" /> */}
         </ScrollArea>
       </SheetContent>
     </Sheet>

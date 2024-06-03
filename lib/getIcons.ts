@@ -1,6 +1,6 @@
 const siteUrl =
   process.env.NODE_ENV === "production"
-    ? "https://linkblink.vercel.app"
+    ? "https://react-native-icons.vercel.app"
     : "http://localhost:3000";
 
 export const fetchIcons = async (

@@ -21,6 +21,7 @@ import {
   jotaiReplaceAttrValues,
   currentColorAtom,
 } from "../icon-page/side-menu";
+import { Icon as IconType } from "@/_contents/Circum-Icons";
 
 function ErrorDialog({
   open,
@@ -45,7 +46,7 @@ function ErrorDialog({
   );
 }
 
-function Icon({ snippet }: any) {
+function Icon({ snippet }: { snippet: IconType }) {
   const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
   const configOptions = useAtomValue(jotaiOptions);

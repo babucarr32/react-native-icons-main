@@ -62,7 +62,7 @@ export const handleWriteFile = async (path, data, template, folderName) => {
   try {
     await fsPromise.writeFile(path, modifiedData);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 };
 
@@ -147,7 +147,7 @@ export const handleReadFile = async (
       const data = await fsPromise.readFile(filePath, { encoding: "utf-8" });
       await handleWriteFile(outputDir, optimizeSvg(data), template, folderName);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 };
@@ -192,19 +192,44 @@ folderName: <<folderName>>
 ---
 \`<<children>>\``;
 
-export const convertSVGToMDX = async () => {
-  console.log("Converting SVG to MDX...\n")
-  for (let i = 0; i < icons.length; i++) {
-    const currentIcon = icons[i].contents;
-    for (let ii = 0; ii < currentIcon.length; ii++) {
-      const filePath = currentIcon[ii].files.split("*.svg")[0];
-      await convertFolder(
-        path.join(process.cwd(), filePath),
-        path.join(process.cwd(), `mdx/icons/${icons[i].source.localName}`),
-        "mdx",
-        template
-      );
-    }
+/**
+ *
+ * @param {string[]} icon
+ * @param {number} index
+ */
+const convertSVGToMDXHandler = async (icon, index) => {
+  for (let ii = 0; ii < icon.length; ii++) {
+    const filePath = icon[ii].files.split("*.svg")[0];
+    await convertFolder(
+      path.join(process.cwd(), filePath),
+      path.join(process.cwd(), `mdx/icons/${icons[index].source.localName}`),
+      "mdx",
+      template
+    );
   }
 };
-/// confitm LUCIDE clone *****************
+
+/**
+ *
+ * @param {string[]} repos
+ */
+export const convertSVGToMDX = async (repos) => {
+  console.log("Converting SVG's to MDX...");
+
+  /*
+    Regenerate only SVG's for only repos that are updated. 
+  */
+  if (repos.length) {
+    const filteredRepos = icons.filter((icon) =>
+      repos.includes(icon.source.localName)
+    );
+    for (let i = 0; i < filteredRepos.length; i++) {
+      const currentIcon = filteredRepos[i].contents;
+      console.log(`Convert: ${filteredRepos[i].name}`);
+      await convertSVGToMDXHandler(currentIcon, i);
+    }
+    console.log("\n");
+  } else {
+    console.log("Convert SVG to MDX: Everything up-to-date. \n");
+  }
+};

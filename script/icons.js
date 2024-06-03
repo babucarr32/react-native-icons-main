@@ -67,28 +67,29 @@ export const icons = [
   // // },
 
   // // ///////////////////////////////////////////
-  // {
-  //   id: "md",
-  // path: "googleIcons",
-  //   name: "Material Design icons",
-  //   contents: [
-  //     {
-  //       files: "icons/material-design-icons/src/24px.svg"
-  //     },
-  //   ],
-  //   projectUrl: "http://google.github.io/material-design-icons/",
-  //   license: "Apache License Version 2.0",
-  //   licenseUrl:
-  //     "https://github.com/google/material-design-icons/blob/master/LICENSE",
-  //   source: {
-  //     type: "git",
-  //     localName: "material-design-icons",
-  //     remoteDir: "src/",
-  //     url: "https://github.com/google/material-design-icons.git",
-  //     branch: "master",
-  //     hash: "9beae745bb758f3ad56654fb377ea5cf62be4915",
-  //   },
-  // },
+  {
+    id: "md",
+    path: "googleIcons",
+    logo: "/images/logo/gfonts.png",
+    name: "Material Design icons",
+    contents: [
+      {
+        files: "icons/material-design-icons/src/24px.svg"
+      },
+    ],
+    projectUrl: "http://google.github.io/material-design-icons/",
+    license: "Apache License Version 2.0",
+    licenseUrl:
+      "https://github.com/google/material-design-icons/blob/master/LICENSE",
+    source: {
+      type: "git",
+      localName: "material-design-icons",
+      remoteDir: "src/",
+      url: "https://github.com/google/material-design-icons.git",
+      branch: "master",
+      hash: "9beae745bb758f3ad56654fb377ea5cf62be4915",
+    },
+  },
   // // ////////////////////////////////////////////////
   {
     id: "ti",
@@ -196,7 +197,7 @@ export const icons = [
     id: "wi",
     path: "weatherIcons",
     name: "Weather Icons",
-    logo: "/images/logo/game-icons.png",
+    logo: "/images/logo/weather-icons.png",
     contents: [
       {
         files: "icons/weather-icons/svg/*.svg"
@@ -419,7 +420,7 @@ export const icons = [
     id: "si",
     name: "Simple Icons",
     path: "simpleIcons",
-    logo: "/images/logo/simple-icons.png",
+    logo: "/images/logo/simple-icons.jpeg",
     contents: [
       {
         files: "icons/simple-icons/icons/*.svg"
@@ -530,7 +531,7 @@ export const icons = [
     id: "vsc",
     path: "vsCodeIcons",
     name: "VS Code Icons",
-    logo: "/images/logo/vs-code-icons.png",
+    logo: "/images/logo/vscode-icons.png",
     contents: [
       {
         files: "icons/vscode-codicons/src/icons/*.svg"

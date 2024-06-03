@@ -18,9 +18,13 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { JSXRuntime, expandProps, exportType, globalOptions } from "./data";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 export const currentColorAtom = atom("currentColor");
-export const jotaiSvgProps = atom("");
+export const jotaiSvgProps = atom(`{
+  "width": 24,
+  "height": 24
+}`);
 export const jotaiReplaceAttrValues = atom("");
 export const jotaiNamedExport = atom("ReactComponent");
 export const jotaiPrettierConfig = atom(`{
@@ -127,13 +131,18 @@ function OptionAccordion() {
   }, [currentColor]);
 
   return (
-    <Accordion type="multiple" className="w-full pb-10">
+    <Accordion
+      type="single"
+      className="w-full pb-10"
+      defaultValue={"global"}
+      onValueChange={(value) => console.log(value)}
+    >
       <AccordionItem value="global">
         <AccordionTrigger>Global</AccordionTrigger>
         <AccordionContent className="m-2">
           <div className="space-y-2">
             {globalOptions.map(({ label, name }) => (
-              <CheckboxOption label={label} text={name} />
+              <CheckboxOption key={label} label={label} text={name} />
             ))}
           </div>
 
@@ -165,7 +174,7 @@ function OptionAccordion() {
                   htmlFor="colorPicker"
                   className={cn(
                     "w-6 h-6 rounded-full cursor-pointer border top-3 right-3",
-                    currentColor === "currentColor" && "!bg-rose-500"
+                    currentColor === "currentColor" && "bg-black dark:bg-white"
                   )}
                 />
               </div>
@@ -296,9 +305,10 @@ function OptionAccordion() {
 
 function SideMenu() {
   return (
-    <div className="lg:w-[300px] h-dvh lg:border-r-2 lg:p-4 shrink-0 overflow-y-scroll">
+    <ScrollArea className="w-[300px] h-dvh sm:border-r-2 sm:p-4 shrink-0">
       <OptionAccordion />
-    </div>
+      <ScrollBar orientation="vertical" />
+    </ScrollArea>
   );
 }
 
