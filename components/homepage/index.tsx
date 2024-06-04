@@ -8,7 +8,7 @@ import Balancer from "react-wrap-balancer";
 
 function Homepage() {
   return (
-    <div className="max-w-[1350px] mx-auto px-4">
+    <div className="max-w-[1350px] mx-auto px-4 pb-24">
       <p className="text-[25px] sm:text-[50px] lg:text-[70px] font-bold text-center mt-5 md:mt-10 bg-gradient-to-r from-amber-500 to-amber-900 bg-clip-text text-transparent">
         ReactNativeIcons
       </p>
