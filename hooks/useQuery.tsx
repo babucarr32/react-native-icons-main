@@ -44,9 +44,8 @@ function useQuery(path?: string) {
             setFetchedAll(fetchedAll);
             setData((prev) => [...prev, ...icons]);
             setLoading(false);
-            setCountRef((prev) => {
-              return prev + 1;
-            });
+            setCountRef((prev) => prev + 1);
+            setLoading(false);
           }
         );
       }

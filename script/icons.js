@@ -467,7 +467,7 @@ export const icons = [
     logo: "/images/logo/ico-moon-icons.png",
     contents: [
       {
-        files: "icons/icoMoon-Free/SVG/*.svg"
+        files: "icons/IcoMoon-Free/SVG/*.svg"
       },
     ],
     projectUrl: "https://github.com/Keyamoon/IcoMoon-Free",
