@@ -1,5 +1,6 @@
 import path from "path";
 import { execSync } from "node:child_process";
+import fsPromise from "node:fs/promises";
 import { icons } from "./icons.js";
 import { convertSVGToMDX } from "./svg-to-mdx.js";
 import { generateContent } from "./content-generator.js";
