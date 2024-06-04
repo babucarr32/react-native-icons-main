@@ -83,10 +83,10 @@ export default function RootLayout({
           <Header />
           {children}
         </ThemeProvider>
-        {process.env.NODE_ENV === "production" && (
-          <GoogleAnalytics gaId={"G-HQXK0HGK5W"} />
-        )}
       </body>
+      {process.env.NODE_ENV === "production" && (
+        <GoogleAnalytics gaId={"G-X89R8YKMJ6"} />
+      )}
     </html>
   );
 }
