@@ -26,7 +26,7 @@ export const jotaiSvgProps = atom(`{
   "height": 24
 }`);
 export const jotaiReplaceAttrValues = atom(`{
-  "currentColor": '#000'
+  "currentColor": "#000"
 }`);
 export const jotaiNamedExport = atom("ReactComponent");
 export const jotaiPrettierConfig = atom(`{
