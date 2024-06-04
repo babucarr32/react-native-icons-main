@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import Header from "@/components/header";
 import { siteConfig } from "@/config/site";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -82,6 +83,9 @@ export default function RootLayout({
           <Header />
           {children}
         </ThemeProvider>
+        {process.env.NODE_ENV === "production" && (
+          <GoogleAnalytics gaId={"G-HQXK0HGK5W"} />
+        )}
       </body>
     </html>
   );
