@@ -67,29 +67,29 @@ export const icons = [
   // // },
 
   // // ///////////////////////////////////////////
-  {
-    id: "md",
-    path: "googleIcons",
-    logo: "/images/logo/gfonts.png",
-    name: "Material Design icons",
-    contents: [
-      {
-        files: "icons/material-design-icons/src/24px.svg"
-      },
-    ],
-    projectUrl: "http://google.github.io/material-design-icons/",
-    license: "Apache License Version 2.0",
-    licenseUrl:
-      "https://github.com/google/material-design-icons/blob/master/LICENSE",
-    source: {
-      type: "git",
-      localName: "material-design-icons",
-      remoteDir: "src/",
-      url: "https://github.com/google/material-design-icons.git",
-      branch: "master",
-      hash: "9beae745bb758f3ad56654fb377ea5cf62be4915",
-    },
-  },
+  // {
+  //   id: "md",
+  //   path: "googleIcons",
+  //   logo: "/images/logo/gfonts.png",
+  //   name: "Material Design icons",
+  //   contents: [
+  //     {
+  //       files: "icons/material-design-icons/src/24px.svg"
+  //     },
+  //   ],
+  //   projectUrl: "http://google.github.io/material-design-icons/",
+  //   license: "Apache License Version 2.0",
+  //   licenseUrl:
+  //     "https://github.com/google/material-design-icons/blob/master/LICENSE",
+  //   source: {
+  //     type: "git",
+  //     localName: "material-design-icons",
+  //     remoteDir: "src/",
+  //     url: "https://github.com/google/material-design-icons.git",
+  //     branch: "master",
+  //     hash: "9beae745bb758f3ad56654fb377ea5cf62be4915",
+  //   },
+  // },
   // // ////////////////////////////////////////////////
   {
     id: "ti",
