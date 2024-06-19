@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
 import { atom, useAtom } from "jotai";
-import _debounce from 'lodash.debounce';
+import _debounce from "lodash.debounce";
 
 import { fetchIcons } from "@/lib/getIcons";
 
@@ -15,8 +15,8 @@ const iconInfoAtom = atom({ license: "", github: "" });
 function useQuery(path?: string) {
   const [data, setData] = useAtom(dataAtom);
   const searchInputRef = useRef<
-  React.MutableRefObject<HTMLInputElement | undefined> | any
->('');
+    React.MutableRefObject<HTMLInputElement | undefined> | any
+  >("");
   const [isFirstLoad, setIsFirstLoad] = useAtom(isFirstLoadAtom);
   const [loading, setLoading] = useState(false);
   const [fetchedAll, setFetchedAll] = useAtom(fetchedAllAtom);
@@ -57,9 +57,11 @@ function useQuery(path?: string) {
     handleSetIntersection();
   }, [inView, countRef, fetchedAll]);
 
-  const handleSearch = async (ref: React.MutableRefObject<HTMLInputElement | undefined>) => {
-    const searchValue = ref.current?.value?.trim(); 
-    fetchIcons(0, path as any, searchValue).then(({ icons, fetchedAll }) => {
+  const handleSearch = async (
+    ref: React.MutableRefObject<HTMLInputElement | undefined>
+  ) => {
+    const searchValue = ref.current?.value?.trim();
+    fetchIcons(0, path as any, searchValue!).then(({ icons, fetchedAll }) => {
       setData([...icons]);
       setLoading(false);
 
@@ -70,7 +72,7 @@ function useQuery(path?: string) {
       }
 
       setFetchedAll(fetchedAll);
-      setSearchValue(searchValue);
+      setSearchValue(searchValue!);
     });
   };
 
@@ -78,16 +80,23 @@ function useQuery(path?: string) {
     _debounce(
       () =>
         handleSearch(
-          searchInputRef as React.MutableRefObject<
-            HTMLInputElement | undefined
-          >,
+          searchInputRef as React.MutableRefObject<HTMLInputElement | undefined>
         ),
-      800,
+      800
     ),
-    [],
+    []
   );
 
-  return { data, loading, handleSearch, isFirstLoad, setInView, setEntry, debounceSearch, searchInputRef };
+  return {
+    data,
+    loading,
+    handleSearch,
+    isFirstLoad,
+    setInView,
+    setEntry,
+    debounceSearch,
+    searchInputRef,
+  };
 }
 
 export default useQuery;
