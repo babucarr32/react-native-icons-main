@@ -100,6 +100,7 @@ function Icon({ snippet }: { snippet: IconType }) {
       setError(`Failed to copy text: ${err.message}`);
     }
   }, [
+    codeString,
     namedExport,
     configOptions,
     svgPropsValue,

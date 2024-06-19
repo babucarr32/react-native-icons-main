@@ -14,23 +14,22 @@ import { icons } from "@/script/icons";
 
 function IconPage() {
   const param = useParams<{ slug: string }>();
-  const { handleSearch } = useQuery(param.slug);
+  const { handleSearch, debounceSearch, searchInputRef } = useQuery(param.slug);
   const result = useMemo(() => {
     return icons.find(({ path }) => path === param.slug);
   }, []);
 
   return (
     <div className="backdrop-blur fixed z-40 w-[calc(100vw-32px)] md:w-[calc(100vw-300px-45px)] lg:w-[calc(100vw-300px-95px)] 2xl:max-w-[1235px]">
-      <form
+      <div
         className="py-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSearch((e as any).target["search"].value);
-        }}
+        
       >
         <div className="flex gap-2">
           <Input
             id="search"
+            ref={searchInputRef}
+            onChange={debounceSearch}
             placeholder="Search icon..."
             className="w-full h-[50px] border-2 rounded-lg dark:bg-secondary-background"
           />
@@ -55,7 +54,7 @@ function IconPage() {
             <Github className="size-5" />
           </Link>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
